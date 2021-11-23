@@ -1,7 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-
+<c:set var="root" value="${pageContext.request.contextPath}" />
 <!-- Header -->
 <div id="header" class="mdk-header bg-light js-mdk-header m-0" data-fixed data-effects="waterfall">
         <div class="mdk-header__content">
@@ -15,7 +16,7 @@
 
                 <!-- Navbar Brand -->
                 <a href="dashboard.html" class="navbar-brand">
-                    <img class="navbar-brand-icon" src="assets/images/logo.png" height="50" alt="Cybersoft" />
+                    <img class="navbar-brand-icon" src="${root}/assets/images/logo.png" height="50" alt="Cybersoft" />
                 </a>
 
                 <span class="mr-3"></span>
@@ -48,7 +49,7 @@
                                     <div class="dropdown-item d-flex">
                                         <div class="mr-3">
                                             <div class="avatar avatar-sm" style="width: 32px; height: 32px">
-                                                <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
+                                                <img src="${root}/assests/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
                                             </div>
                                         </div>
                                         <div class="flex">
@@ -95,7 +96,7 @@
                                     <div class="dropdown-item d-flex">
                                         <div class="mr-3">
                                             <div class="avatar avatar-sm" style="width: 32px; height: 32px">
-                                                <img src="assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
+                                                <img src="/assests/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
                                             </div>
                                         </div>
                                         <div class="flex">

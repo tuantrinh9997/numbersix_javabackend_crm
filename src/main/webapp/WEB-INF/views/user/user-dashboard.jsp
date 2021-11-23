@@ -2,14 +2,28 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
-<!DOCTYPE html>
-<html>
-<head>
-<meta charset="UTF-8">
 <title>User Page</title>
-</head>
 <body>
-	<h1>User list</h1>
+	<div class="container page__heading-container">
+	    <div class="page__heading">
+	        <div class="d-flex align-items-center">
+	            <div>
+	                <nav aria-label="breadcrumb">
+	                    <ol class="breadcrumb mb-0">
+	                        <li class="breadcrumb-item"><a href="#">User</a></li>
+	                        <li class="breadcrumb-item active" aria-current="page">
+	                            list
+	                        </li>
+	                    </ol>
+	                </nav>
+	                <h1 class="m-0">Users</h1>
+	            </div>
+	            
+	        </div>
+	    </div>
+	</div>
+	<div class="container page__container">
+	
 	<table class="table">
 		<thead>
 			<tr>
@@ -36,5 +50,6 @@
 			</c:forEach>
 		</tbody>
 	</table>
+	</div>
+	
 </body>
-</html>
