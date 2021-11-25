@@ -4,7 +4,9 @@ import repository.UserRepository;
 import java.util.List;
 import entity.User;
 
-public class UserService {
+public interface UserService {
+	public List<User> getUser();
+	/*
 	private UserRepository repository;
 	
 	public UserService() {
@@ -14,4 +16,5 @@ public class UserService {
 	public List<User> getUser(){
 		return repository.getUser();
 	}
+	*/
 }

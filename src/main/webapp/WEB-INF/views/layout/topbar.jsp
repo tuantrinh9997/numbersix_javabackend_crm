@@ -49,7 +49,7 @@
                                     <div class="dropdown-item d-flex">
                                         <div class="mr-3">
                                             <div class="avatar avatar-sm" style="width: 32px; height: 32px">
-                                                <img src="${root}/assests/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
+                                                <img src="${root}/assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
                                             </div>
                                         </div>
                                         <div class="flex">
@@ -96,7 +96,7 @@
                                     <div class="dropdown-item d-flex">
                                         <div class="mr-3">
                                             <div class="avatar avatar-sm" style="width: 32px; height: 32px">
-                                                <img src="/assests/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
+                                                <img src="${root}/assets/images/256_daniel-gaffey-1060698-unsplash.jpg" alt="Avatar" class="avatar-img rounded-circle" />
                                             </div>
                                         </div>
                                         <div class="flex">
@@ -125,7 +125,7 @@
                         </a>
                         <div id="account_menu" class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-item-text dropdown-item-text--lh">
-                                <div><strong>Thanh Tuấn</strong></div>
+                                <div><strong>${username}</strong></div>
                                 <div>@tuanphan</div>
                             </div>
                             <div class="dropdown-divider"></div>

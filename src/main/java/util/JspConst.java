@@ -9,4 +9,7 @@ public class JspConst {
 	
 	/* authen */
 	public static final String AUTHEN_LOGIN = "/WEB-INF/views/authen/login.jsp";
+	
+	/* home */
+	public static final String HOME = "/WEB-INF/views/home/home.jsp";
 }

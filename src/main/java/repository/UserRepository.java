@@ -1,26 +1,24 @@
 package repository;
 
-import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.LinkedList;
 import java.util.List;
-import db.MySQLConnection;
 import db.DbQuerry;
 import entity.Role;
 import entity.User;
 
-public class UserRepository {
-	private Connection connection = null;
+public class UserRepository extends BaseRepository {
+	//private Connection connection = null;
 
 	public List<User> getUser() {
 		List<User> users = new LinkedList<User>();
 		try {
-			connection = MySQLConnection.getConnection();
+			//connection = MySQLConnection.getConnection();
 			String query = DbQuerry.USER_WITH_ROLE;
 
-			PreparedStatement statement = connection.prepareStatement(query);
+			PreparedStatement statement = _connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
 
 			while (rs.next()) {
@@ -45,9 +43,9 @@ public class UserRepository {
 			System.out.println("Khong the ket noi den du lieu");
 			e.printStackTrace();
 		} finally {
-			if (connection != null)
+			if (_connection != null)
 				try {
-					connection.close();
+					_connection.close();
 				} catch (SQLException e) {
 					e.printStackTrace();
 				}

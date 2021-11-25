@@ -21,7 +21,7 @@
     	<jsp:include page="/WEB-INF/views/layout/topbar.jsp"></jsp:include>
     	
     		<div class="mdk-header-layout__content page">
-    			<jsp:include page="/WEB-INF/views/layout/navbar.jsp"></jsp:include>
+    			<jsp:include page="/WEB-INF/views/layout/navbar${role} }.jsp"></jsp:include>
 				<dec:body></dec:body>
   			</div>
   		</div>

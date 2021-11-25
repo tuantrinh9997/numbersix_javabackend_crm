@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import entity.User;
 import service.UserService;
+import service.UserService_Implement;
 import util.JspConst;
 import util.UrlConst;
 
@@ -21,13 +22,17 @@ import util.UrlConst;
 		UrlConst.USER_UPDATE
 })
 public class UserServlet extends HttpServlet{
-	private UserService service;
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = 1L;
+	private UserService _userService;
 	private String action;
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		service = new UserService();
+		_userService = new UserService_Implement();
 		action = "";
 	}
 	
@@ -42,7 +47,7 @@ public class UserServlet extends HttpServlet{
 		switch (action) {
 		case UrlConst.USER_DASHBOARD:
 			
-			List<User> users = service.getUser();
+			List<User> users = _userService.getUser();
 			req.setAttribute("users", users);
 			
 			req.getRequestDispatcher(JspConst.USER_DASHBOARD)

@@ -14,4 +14,7 @@ public class UrlConst {
 	public static final String AUTHEN_HOME = "/authen";
 	public static final String AUTHEN_LOGIN = "/authen/login";
 	public static final String AUTHEN_LOGOUT = "/authen/logout";
+	
+	/* home */
+	public static final String HOME = "/home";
 }
