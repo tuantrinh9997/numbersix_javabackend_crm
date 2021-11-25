@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<decorators defaultdir="/decorators">
+	<decorator name="authen" page="authen_layout.jsp">
+		<pattern>/authen*</pattern>
+	</decorator>
+	<decorator name="web" page="default_layout.jsp">
+		<pattern>/*</pattern>
+	</decorator>
+</decorators>
