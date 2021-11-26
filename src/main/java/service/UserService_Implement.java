@@ -11,4 +11,7 @@ public class UserService_Implement extends BaseService
 		return _userRepository.getUser();
 	}
 
-}
+	@Override
+	public int addUser(String email, String password, String fullname, String phone, String address, int role) {
+		return _userRepository.addUser(email, password, fullname, phone, address, role);
+	}}

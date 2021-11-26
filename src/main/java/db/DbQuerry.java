@@ -6,4 +6,7 @@ public class DbQuerry {
 			+ "FROM users u \r\n"
 			+ "LEFT JOIN roles r ON u.role_id = r.id;";
 	
+	public static final String ADD_USER = "insert into users(email, password, fullname, phone, role_id, address)\r\n"
+			+ "values\r\n"
+			+ "	(?, ?, ?, ?, ?, ?);";
 }

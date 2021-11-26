@@ -52,4 +52,26 @@ public class UserRepository extends BaseRepository {
 		}
 		return users;
 	}
+	
+	// them user
+	public int addUser(String email, String password, String fullname, String phone, String address, int role) {
+		String query = DbQuerry.ADD_USER;
+		try {
+			PreparedStatement statement = _connection.prepareStatement(query);
+			
+			statement.setString(1, email);
+			statement.setString(2, password);
+			statement.setString(3, fullname);
+			statement.setString(4, phone);
+			statement.setInt(5, role);
+			statement.setString(6, address);
+			
+			return statement.executeUpdate();
+		} catch (SQLException e) {
+			System.out.println("Khong the ket noi du lieu");
+			e.printStackTrace();
+		}
+		return 0;
+		
+	}
 }

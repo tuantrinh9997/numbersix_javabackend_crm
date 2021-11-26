@@ -1,6 +1,5 @@
 package service;
 
-import repository.UserRepository;
 import java.util.List;
 import entity.User;
 
@@ -17,4 +16,6 @@ public interface UserService {
 		return repository.getUser();
 	}
 	*/
+	
+	public int addUser(String email, String password, String fullname, String phone, String address, int role);
 }

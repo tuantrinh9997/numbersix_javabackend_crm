@@ -6,9 +6,11 @@ public class UrlConst {
 	
 	/* user */
 	public static final String USER_DASHBOARD = "/user";
-	public static final String USER_ADD = "/add";
-	public static final String USER_DELETE = "/delete";
-	public static final String USER_UPDATE = "/update";
+	public static final String USER_ADD = "/user/add";
+	public static final String USER_DELETE = "/user/delete";
+	public static final String USER_UPDATE = "/user/update";
+	public static final String USER_PROFILE = "/user/profile";
+	public static final String USER_FIND = "/user/find";
 	
 	/* authen */
 	public static final String AUTHEN_HOME = "/authen";

@@ -53,9 +53,55 @@ public class UserServlet extends HttpServlet{
 			req.getRequestDispatcher(JspConst.USER_DASHBOARD)
 				.forward(req, resp);
 			break;
-
+			
+		case UrlConst.USER_ADD:
+			req.getRequestDispatcher(JspConst.USER_ADD)
+				.forward(req, resp);
+			//doPost(req, resp);
+			
+			
+			
+			break;
+			
+		case UrlConst.USER_DELETE:
+			
+			break;
+			
+		case UrlConst.USER_UPDATE:
+			
+			break;
+			
+		case UrlConst.USER_PROFILE:
+			
+			break;
+			
+		case UrlConst.USER_FIND:
+			
+			break;
+			
 		default:
 			break;
 		}
 	}
+	
+	@Override
+	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String email = req.getParameter("email");
+		String password = req.getParameter("password");
+		String fullname = req.getParameter("fullname");
+		String phone = req.getParameter("phone");
+		int role = Integer.parseInt(req.getParameter("role"));
+		String address = req.getParameter("address");
+		
+		_userService.addUser(email, password, fullname, phone, address, role);
+		
+		req.getRequestDispatcher(JspConst.USER_DASHBOARD).forward(req, resp);
+	}
+	
+	@Override
+	protected void doDelete(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		// TODO Auto-generated method stub
+		super.doDelete(req, resp);
+	}
+	
 }
