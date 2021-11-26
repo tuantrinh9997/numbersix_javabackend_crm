@@ -17,4 +17,7 @@ public class UrlConst {
 	
 	/* home */
 	public static final String HOME = "/home";
+	
+	/* admin */
+	public static final String ADMIN_HOME = "/admin";
 }

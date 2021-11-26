@@ -48,17 +48,10 @@ public class AuthenFilter implements Filter{
 		
 		String action = req.getServletPath();
 		
-		//boolean isAssetFolder = action.contains("/assets/");
-		
 		boolean isAuthenticated = username != null && username != "";
 		boolean isAnonymos = action.equals(UrlConst.AUTHEN_LOGIN) ||
 				action.equals(UrlConst.AUTHEN_LOGOUT) ||
-				action.contains("/assets/");
-		
-		System.out.println("isAnonymos: "+isAnonymos);
-		System.out.println("isAuthenticate: "+isAuthenticated);
-		
-		//boolean isAuthed = req.getSession().getAttribute("isAuthenticated") != null ? true : false;
+				action.contains("/assets/"); // neu gap /assets (cua bootstrap) cung cho qua
 		
 		if(isAnonymos) {
 			chain.doFilter(req, resp);

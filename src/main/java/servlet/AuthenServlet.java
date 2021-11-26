@@ -30,7 +30,6 @@ public class AuthenServlet extends HttpServlet{
 	private static final long serialVersionUID = 1L;
 	private AuthenService _authenService;
 	private String _action;
-	private String _uri;
 	
 	@Override
 	public void init() throws ServletException {
@@ -41,7 +40,6 @@ public class AuthenServlet extends HttpServlet{
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		_action = req.getServletPath();
-		_uri = req.getContextPath();
 		super.service(req, resp);
 	}
 	
@@ -63,6 +61,7 @@ public class AuthenServlet extends HttpServlet{
 	
 	private void logoutAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		System.out.println("chay ham logoutAction");
+		
 		//Xoa cookie
 		Cookie ck_user = new Cookie("ck_user", null);
 		ck_user.setMaxAge(0);
@@ -74,8 +73,7 @@ public class AuthenServlet extends HttpServlet{
 		
 		//redirect or render view
 		loginGetAction(req, resp);
-		//req.getRequestDispatcher(JspConst.AUTHEN_LOGIN)
-		//	.forward(req, resp);
+		
 	}
 	
 	
@@ -88,11 +86,8 @@ public class AuthenServlet extends HttpServlet{
 		
 		String username = req.getParameter("username");
 		String password = req.getParameter("password");
-
-		//Sua cho nay lai
 		
-		//String page = "";
-		
+		// lay user kiem tra xem co user hay khong
 		User checkLogin = _authenService.login(username, password);
 		
 		if(checkLogin != null) {
@@ -104,8 +99,23 @@ public class AuthenServlet extends HttpServlet{
 			resp.addCookie(ck_user);
 			resp.addCookie(ck_role);
 			
-			req.getRequestDispatcher(JspConst.HOME)
-				.forward(req, resp);
+			if (role.equalsIgnoreCase("admin")) {
+				req.getRequestDispatcher(JspConst.ADMIN)
+					.forward(req, resp);
+				
+			} else if (role.equalsIgnoreCase("leader")) {
+				req.getRequestDispatcher(JspConst.LEADER)
+					.forward(req, resp);
+				
+			} else if (role.equalsIgnoreCase("pm")) {
+				req.getRequestDispatcher(JspConst.PM)
+					.forward(req, resp);
+				
+			} else {
+				req.getRequestDispatcher(JspConst.USER)
+					.forward(req, resp);
+			}
+			
 		} else {
 			loginGetAction(req, resp);
 		}

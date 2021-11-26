@@ -15,7 +15,7 @@
 					<li class="nav-item"><a class="nav-link active"
 						href="home"> Home</a></li>
 					<li class="nav-item"><a class="nav-link active"
-						href="home"> Leader test</a></li>
+						href="home"> Project Manager</a></li>
 					<li class="nav-item dropdown"><a href="#"
 						class="nav-link dropdown-toggle" data-toggle="dropdown">
 							Project </a>
