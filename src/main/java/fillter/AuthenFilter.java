@@ -39,20 +39,13 @@ public class AuthenFilter implements Filter{
 			chain.doFilter(req, resp);
 			
 		} else {
-			System.out.println("---filter of Action"+ action);
 			Cookie[] cookies = req.getCookies();
 			
 			String username = null;
 			String role = null;
 			
 			if (cookies != null) {
-				
-				System.out.println("---cookies lenght:"+ cookies.length);
 				for (Cookie cookie : cookies) {
-					
-					System.out.println("---cookie name:"+ cookie.getName());
-					System.out.println("---cookie value:"+ cookie.getValue());
-					
 					if("ck_user".equals(cookie.getName())) {
 						username = cookie.getValue();
 					}
@@ -63,22 +56,14 @@ public class AuthenFilter implements Filter{
 				}
 			}
 			//check
-			//boolean isAuthenticated = username != null && username != "";
-			if (username != null) {
-				System.out.println("---filter of Action is isAuthenticated: "+ action);
-				//System.out.println("---filter isAuthenticated: "+ action);
-				System.out.println("----username: "+ username);
-				System.out.println("----role: "+ role);
+			boolean isAuthenticated = username != null && username != "";
+			if (isAuthenticated) {
 				req.setAttribute("role", role);
 				req.setAttribute("username", username);
 				
 				chain.doFilter(req, resp);
 				
 			} else {
-				System.out.println("----filter of Action is not Authenticated: "+ action);
-				System.out.println("----username: "+ username);
-				System.out.println("----role: "+ role);
-				
 				resp.sendRedirect(req.getContextPath() + UrlConst.AUTHEN_LOGIN);
 			}
 		}		

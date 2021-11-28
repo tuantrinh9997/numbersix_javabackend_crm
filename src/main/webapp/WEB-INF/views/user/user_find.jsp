@@ -24,13 +24,6 @@
 	</div>
 	<div class="container page__container">
 
-		<a href="${root}/user/add"><i class="fas fa-plus"></i> Add user</a><br>
-		
-		<form method="post" action="">
-			<input type="text" name="keyword" />
-			<button type="submit">Search</button>
-		</form>
-		
 		<table class="table">
 			<thead>
 				<tr>
@@ -44,7 +37,6 @@
 					<th>Description</th>
 			</thead>
 			<tbody>
-				<c:forEach var="user" items="${users}">
 					<tr>
 						<td><a href="${root}/user/delete?id=${user.id}"><i class="fas fa-trash"></i> Delete</a>	|
 						<a href="${root}/user/update?id=${user.id}"><i class="fas fa-edit"></i> Update</a>	|
@@ -57,7 +49,6 @@
 						<td>${user.address}</td>
 						<td>${user.role.name}</td>
 						<td>${user.role.description}</td>
-				</c:forEach>
 			</tbody>
 		</table>
 	</div>
