@@ -4,7 +4,7 @@
 	prefix="dec"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContext.request.contextPath}" scope="session" />
 <!DOCTYPE html>
 <html>
 	<head>
