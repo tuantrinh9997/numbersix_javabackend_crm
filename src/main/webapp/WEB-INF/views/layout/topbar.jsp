@@ -126,20 +126,20 @@
                         <div id="account_menu" class="dropdown-menu dropdown-menu-right">
                             <div class="dropdown-item-text dropdown-item-text--lh">
                                 <div><strong>${username}</strong></div>
-                                <div>@tuanphan</div>
+                                <div>${username}</div>
                             </div>
                             <div class="dropdown-divider"></div>
                             <a class="dropdown-item active" href="dashboard.html">
                                 Dashboard
                             </a>
-                            <a class="dropdown-item" href="profile.html">
+                            <a class="dropdown-item" href="${root}/user/profile">
                                 My profile
                             </a>
-                            <a class="dropdown-item" href="account-edit.html">
+                            <a class="dropdown-item" href="#">
                                 Edit account
                             </a>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item" href="login">Logout</a>
+                            <a class="dropdown-item" href="${root}/authen/logout">Logout</a>
                         </div>
                     </li>
                 </ul>
