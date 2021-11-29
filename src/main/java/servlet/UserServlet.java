@@ -19,7 +19,8 @@ import util.UrlConst;
 		UrlConst.USER_DASHBOARD, 
 		UrlConst.USER_ADD, 
 		UrlConst.USER_UPDATE,
-		UrlConst.USER_DELETE
+		UrlConst.USER_DELETE,
+		UrlConst.USER_PROFILE
 	})
 public class UserServlet extends HttpServlet {
 	/**
@@ -59,9 +60,14 @@ public class UserServlet extends HttpServlet {
 			break;
 
 		case UrlConst.USER_UPDATE:
-			req.getRequestDispatcher(JspConst.USER_UPDATE);
+			req.getRequestDispatcher(JspConst.USER_UPDATE).forward(req, resp);
 			break;
+		
+		case UrlConst.USER_PROFILE:
+			
+			showProfile(req, resp);
 
+			break;
 		default:
 			break;
 		}
@@ -140,5 +146,15 @@ public class UserServlet extends HttpServlet {
 		
 
 		resp.sendRedirect(_uri + UrlConst.USER_DASHBOARD);
+	}
+	
+	protected void showProfile(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		System.out.println("---"+id);
+		User user = _userService.findUser(id);
+		System.out.println(user.getEmail());
+		req.setAttribute("user", user);
+		
+		req.getRequestDispatcher(JspConst.USER_PROFILE).forward(req, resp);
 	}
 }

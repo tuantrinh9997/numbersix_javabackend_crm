@@ -3,7 +3,8 @@
 
 <body>
 <form action="" method="post">
-	<input type="hidden" name="adduser" value="adduser"><br><br>
+	<label for="id">Chon Id can update:</label><br>
+	<input type="number" id="id" name="id" ><br><br>
 	<label for="email">Email:</label><br>
 	<input type="text" id="email" name="email" ><br><br>
 	<label for="password">Password:</label><br>

@@ -6,6 +6,7 @@ public class JspConst {
 	public static final String USER_ADD = "/WEB-INF/views/user/user_add.jsp";
 	public static final String USER_FIND = "/WEB-INF/views/user/user_find.jsp";
 	public static final String USER_UPDATE = "/WEB-INF/views/user/user_update.jsp";
+	public static final String USER_PROFILE = "/WEB-INF/views/user/user_profile.jsp";
 	
 	/* authen */
 	public static final String AUTHEN_LOGIN = "/WEB-INF/views/authen/login.jsp";

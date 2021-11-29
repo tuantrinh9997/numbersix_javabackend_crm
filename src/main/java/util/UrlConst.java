@@ -19,6 +19,9 @@ public class UrlConst {
 	/* home */
 	public static final String HOME = "/home";
 	
-	/* admin */
-	public static final String ADMIN_HOME = "/admin";
+	/* project */
+	public static final String PROJECT_HOME = "/project";
+	public static final String PROJECT_ADD = "/project/add";
+	public static final String PROJECT_UPDATE = "/project/update";
+	public static final String PROJECT_DELETE = "/project/delete";
 }
