@@ -2,6 +2,7 @@
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
+<c:set var="root" value="${pageContext.request.contextPath }" />
 <div class="page__header mb-0">
 	<div class="container page__container">
 		<div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0">

@@ -1,20 +1,16 @@
 package service;
 
-import repository.UserRepository;
 import java.util.List;
 import entity.User;
 
 public interface UserService {
 	public List<User> getUser();
-	/*
-	private UserRepository repository;
 	
-	public UserService() {
-		repository = new UserRepository();
-	}
+	public int addUser(String email, String password, String fullname, String phone, String address, int role);
 	
-	public List<User> getUser(){
-		return repository.getUser();
-	}
-	*/
+	public int delUser(int id);
+	
+	public User findUser(int id);
+	
+	public int updateUser(int id, String email, String password, String fullname, String phone, String address, int role);
 }

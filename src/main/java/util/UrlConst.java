@@ -6,9 +6,10 @@ public class UrlConst {
 	
 	/* user */
 	public static final String USER_DASHBOARD = "/user";
-	public static final String USER_ADD = "/add";
-	public static final String USER_DELETE = "/delete";
-	public static final String USER_UPDATE = "/update";
+	public static final String USER_ADD = "/user/add";
+	public static final String USER_DELETE = "/user/delete";
+	public static final String USER_UPDATE = "/user/update";
+	public static final String USER_PROFILE = "/user/profile";
 	
 	/* authen */
 	public static final String AUTHEN_HOME = "/authen";
@@ -18,6 +19,9 @@ public class UrlConst {
 	/* home */
 	public static final String HOME = "/home";
 	
-	/* admin */
-	public static final String ADMIN_HOME = "/admin";
+	/* project */
+	public static final String PROJECT_HOME = "/project";
+	public static final String PROJECT_ADD = "/project/add";
+	public static final String PROJECT_UPDATE = "/project/update";
+	public static final String PROJECT_DELETE = "/project/delete";
 }

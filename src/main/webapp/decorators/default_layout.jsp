@@ -4,7 +4,7 @@
 	prefix="dec"%>
 
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<c:set var="root" value="${pageContext.request.contextPath}" />
+<c:set var="root" value="${pageContext.request.contextPath}" scope="session" />
 <!DOCTYPE html>
 <html>
 	<head>
@@ -21,7 +21,7 @@
     	<jsp:include page="/WEB-INF/views/layout/topbar.jsp"></jsp:include>
     	
     		<div class="mdk-header-layout__content page">
-    			<jsp:include page="/WEB-INF/views/layout/navbar${role} }.jsp"></jsp:include>
+    			<jsp:include page="/WEB-INF/views/layout/navbar_${role}.jsp"></jsp:include>
 				<dec:body></dec:body>
   			</div>
   		</div>
