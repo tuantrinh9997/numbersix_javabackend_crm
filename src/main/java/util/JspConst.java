@@ -23,4 +23,10 @@ public class JspConst {
 	/* project */
 	public static final String PROJECT_DASHBOARD = "/WEB-INF/views/project/project_dashboard.jsp";
 	public static final String PROJECT_ADD = "/WEB-INF/views/project/project_add.jsp";
+	public static final String PROJECT_UPDATE = "/WEB-INF/views/project/project_update.jsp";
+	public static final String PROJECT_INFO = "/WEB-INF/views/project/project_information.jsp";
+	
+	/* task */
+	public static final String TASK_DASHBOARD = "/WEB-INF/views/task/task_dashboard.jsp";
+	public static final String TASK_ADD = "/WEB-INF/views/task/task_add.jsp";
 }

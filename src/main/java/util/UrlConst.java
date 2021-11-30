@@ -24,4 +24,12 @@ public class UrlConst {
 	public static final String PROJECT_ADD = "/project/add";
 	public static final String PROJECT_UPDATE = "/project/update";
 	public static final String PROJECT_DELETE = "/project/delete";
+	public static final String PROJECT_INFO = "/project/information";
+	
+	/* task */
+	public static final String TASK_HOME = "/task";
+	public static final String TASK_ADD = "/task/add";
+	public static final String TASK_UPDATE = "/task/update";
+	public static final String TASK_DELETE = "/task/delete";
+	public static final String TASK_INFO = "/task/info";
 }

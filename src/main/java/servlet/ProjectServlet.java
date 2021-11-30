@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+
 import entity.Project;
 import service.ProjectService;
 import service.ProjectService_Implement;
@@ -19,7 +20,8 @@ import util.UrlConst;
 		UrlConst.PROJECT_HOME,
 		UrlConst.PROJECT_ADD,
 		UrlConst.PROJECT_UPDATE,
-		UrlConst.PROJECT_DELETE
+		UrlConst.PROJECT_DELETE,
+		UrlConst.PROJECT_INFO
 })
 
 public class ProjectServlet extends HttpServlet{
@@ -60,25 +62,17 @@ public class ProjectServlet extends HttpServlet{
 			deleteProject(req, resp);
 			break;
 			
+		case UrlConst.PROJECT_UPDATE:
+			req.getRequestDispatcher(JspConst.PROJECT_UPDATE).forward(req, resp);
+			break;
+			
+		case UrlConst.PROJECT_INFO:
+			getInfoProject(req, resp);
+			break;
+			
 		default:
 			break;
 		}
-	}
-	
-	private void deleteProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		int id = Integer.parseInt(req.getParameter("id"));
-		_service.deleteProject(id);
-		
-		resp.sendRedirect(_uri+UrlConst.PROJECT_HOME);
-		
-	}
-
-	private void getProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Project> projects = _service.getProject();
-		
-		req.setAttribute("projects", projects);
-		req.getRequestDispatcher(JspConst.PROJECT_DASHBOARD).forward(req, resp);
-		
 	}
 
 	@Override
@@ -87,10 +81,26 @@ public class ProjectServlet extends HttpServlet{
 		case UrlConst.PROJECT_ADD:
 			addProject(req, resp);
 			break;
-
+		
+		case UrlConst.PROJECT_UPDATE:
+			updateProject(req, resp);
+			break;
+			
 		default:
 			break;
 		}
+	}
+
+	private void updateProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		String name = req.getParameter("name");
+		String start_date = req.getParameter("start_date");
+		String end_date = req.getParameter("end_date");
+		String description = req.getParameter("description");
+		int user_id = Integer.parseInt(req.getParameter("user_id"));
+		
+		_service.updateProject(id, name, start_date, end_date, description, user_id);
+		resp.sendRedirect(_uri+UrlConst.PROJECT_HOME);
 	}
 
 	private void addProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
@@ -104,6 +114,28 @@ public class ProjectServlet extends HttpServlet{
 		resp.sendRedirect(_uri + UrlConst.PROJECT_HOME);
 		
 	}
-
-
+	
+	private void getInfoProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		Project project = _service.getInfoProject(id);
+		req.setAttribute("project", project);
+		
+		req.getRequestDispatcher(JspConst.PROJECT_INFO).forward(req, resp);
+	}
+	
+	private void deleteProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		int id = Integer.parseInt(req.getParameter("id"));
+		_service.deleteProject(id);
+		
+		resp.sendRedirect(_uri+UrlConst.PROJECT_HOME);
+		
+	}
+	
+	private void getProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		List<Project> projects = _service.getProject();
+		
+		req.setAttribute("projects", projects);
+		req.getRequestDispatcher(JspConst.PROJECT_DASHBOARD).forward(req, resp);
+		
+	}
 }

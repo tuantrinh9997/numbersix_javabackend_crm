@@ -12,5 +12,8 @@ public interface ProjectService {
 	
 	public int addProject(String name, String start_date, String end_date, String description, int user_id);
 	
-	public int updateProject(int id);
+	public int updateProject(int id, String name, String start_date, String end_date, String description, int user_id);
+
+	public Project getInfoProject(int id);
+	
 }
