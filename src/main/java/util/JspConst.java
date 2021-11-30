@@ -20,4 +20,7 @@ public class JspConst {
 	public static final String PM = "/WEB-INF/views/layout/navbar_pm.jsp";
 	public static final String USER = "/WEB-INF/views/layout/navbar_user.jsp";
 	
+	/* project */
+	public static final String PROJECT_DASHBOARD = "/WEB-INF/views/project/project_dashboard.jsp";
+	public static final String PROJECT_ADD = "/WEB-INF/views/project/project_add.jsp";
 }

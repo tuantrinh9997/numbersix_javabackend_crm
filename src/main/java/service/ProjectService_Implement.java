@@ -1,5 +1,27 @@
 package service;
 
-public class ProjectService_Implement {
+import java.util.List;
 
+import entity.Project;
+
+public class ProjectService_Implement extends BaseService implements ProjectService{
+	
+	public List<Project> getProject() {
+		return _projectRepository.getProject();
+	}
+
+	public int deleteProject(int id) {
+		return _projectRepository.delProject(id);
+	}
+
+
+	public int updateProject(int id) {
+		return _projectRepository.updateProject();
+	}
+
+	public int addProject(String name, String start_date, String end_date, String description, int user_id) {
+		return _projectRepository.addProject(name, start_date, end_date, description, user_id);
+	}
+	
+	
 }

@@ -14,4 +14,13 @@ public class DbQuerry {
 			+ "FROM users u \r\n"
 			+ "LEFT JOIN roles r ON u.role_id = r.id\r\n"
 			+ "where u.id = ";
+	
+	/* PROJECT */
+	public static final String PROJECT_WITH_USER = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
+			+ "FROM project p \r\n"
+			+ "LEFT JOIN users u ON p.creat_user = u.id;";
+	
+	public static final String ADD_PROJECT = "insert into project (name, start_date, end_date, description, creat_user)\r\n"
+			+ "values\r\n"
+			+ "	(?, ?, ?, ?, ?);";
 }

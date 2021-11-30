@@ -11,15 +11,6 @@ public class User {
 	private Role role;
 	
 	/* contructor */
-	/**
-	 * @param id
-	 * @param name
-	 * @param email
-	 * @param password
-	 * @param phone
-	 * @param address
-	 * @param role
-	 */
 	public User(int id, String name, String email, String password, String phone, String address, Role role) {
 		super();
 		this.id = id;
