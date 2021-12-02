@@ -6,8 +6,8 @@ import entity.Project;
 
 public class ProjectService_Implement extends BaseService implements ProjectService{
 	
-	public List<Project> getProject() {
-		return _projectRepository.getProject();
+	public List<Project> getProject(int id, String role) {
+		return _projectRepository.getProject(id, role);
 	}
 
 	public int deleteProject(int id) {

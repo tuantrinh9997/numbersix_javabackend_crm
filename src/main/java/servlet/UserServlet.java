@@ -47,27 +47,33 @@ public class UserServlet extends HttpServlet {
 
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String role = (String) req.getAttribute("role");
 		switch (action) {
 		case UrlConst.USER_DASHBOARD:
 			getUsers(req, resp);
 			break;
 		case UrlConst.USER_ADD:
+			if (role.equalsIgnoreCase("leader"))
+				getUsers(req, resp);
 			req.getRequestDispatcher(JspConst.USER_ADD).forward(req, resp);
 			break;
 
 		case UrlConst.USER_DELETE:
+			if (role.equalsIgnoreCase("leader"))
+				getUsers(req, resp);
 			deleteUser(req, resp);
 			break;
 
 		case UrlConst.USER_UPDATE:
+			if (role.equalsIgnoreCase("leader"))
+				getUsers(req, resp);
 			req.getRequestDispatcher(JspConst.USER_UPDATE).forward(req, resp);
 			break;
 		
 		case UrlConst.USER_PROFILE:
-			
 			showProfile(req, resp);
-
 			break;
+			
 		default:
 			break;
 		}
@@ -75,7 +81,6 @@ public class UserServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// dùng setich case
 		switch (action) {
 		case UrlConst.USER_ADD:
 			addUser(req, resp);
@@ -120,17 +125,13 @@ public class UserServlet extends HttpServlet {
 	}
 
 	protected void findUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		// Viết cái này
 		int id = Integer.parseInt(req.getParameter("keyword"));
-		System.out.println("---"+id);
 		User user = _userService.findUser(id);
-		System.out.println(user.getEmail());
 		
 		req.setAttribute("user", user);
 		
 		req.getRequestDispatcher(JspConst.USER_FIND).forward(req, resp);
 		
-		//resp.sendRedirect(_uri + UrlConst.USER_FIND);
 	}
 
 	protected void updateUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

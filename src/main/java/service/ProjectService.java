@@ -6,7 +6,7 @@ import entity.Project;
 
 public interface ProjectService {
 	
-	public List<Project> getProject();
+	public List<Project> getProject(int id, String role);
 	
 	public int deleteProject(int id);
 	

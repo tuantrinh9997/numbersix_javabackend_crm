@@ -77,7 +77,6 @@ public class AuthenServlet extends HttpServlet{
 	
 	//------------------------------
 	private void logoutAction(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		System.out.println("chay ham logoutAction");
 		
 		//Xoa cookie
 		Cookie ck_user = new Cookie("ck_user", null);
@@ -88,10 +87,20 @@ public class AuthenServlet extends HttpServlet{
 		ck_role.setPath(_uri);
 		ck_role.setMaxAge(0);
 		
+		Cookie ck_id = new Cookie("ck_id", null);
+		ck_id.setPath(_uri);
+		ck_id.setMaxAge(0);
+		
+		Cookie ck_name = new Cookie("ck_name", null);
+		ck_name.setPath(_uri);
+		ck_name.setMaxAge(0);
+		
 		resp.addCookie(ck_user);
 		resp.addCookie(ck_role);
+		resp.addCookie(ck_id);
+		resp.addCookie(ck_name);
 		
-		loginGetAction(req, resp);
+		resp.sendRedirect(_uri+UrlConst.AUTHEN_LOGIN);
 		
 	}
 	
@@ -115,12 +124,18 @@ public class AuthenServlet extends HttpServlet{
 			//Add cookie here
 			Cookie ck_user = new Cookie("ck_user", username);
 			Cookie ck_role = new Cookie("ck_role", role.toLowerCase());
+			Cookie ck_id = new Cookie("ck_id", String.valueOf(checkLogin.getId()));
+			Cookie ck_name = new Cookie("ck_name", checkLogin.getName());
 			
 			ck_role.setPath(_uri);
 			ck_user.setPath(_uri);
+			ck_id.setPath(_uri);
+			ck_name.setPath(_uri);
 			
 			resp.addCookie(ck_user);
 			resp.addCookie(ck_role);
+			resp.addCookie(ck_id);
+			resp.addCookie(ck_name);
 			
 			resp.sendRedirect(_uri + UrlConst.HOME);
 			

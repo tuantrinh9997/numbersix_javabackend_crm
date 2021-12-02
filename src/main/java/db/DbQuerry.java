@@ -20,9 +20,14 @@ public class DbQuerry {
 			+ "where u.id = ";
 	
 	/* PROJECT */
+	public static final String PROJECT_WITH_USER_ID = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
+			+ "FROM project p \r\n"
+			+ "LEFT JOIN users u ON p.creat_user = u.id\r\n"
+			+ "WHERE u.id = ";
+	
 	public static final String PROJECT_WITH_USER = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
 			+ "FROM project p \r\n"
-			+ "LEFT JOIN users u ON p.creat_user = u.id;";
+			+ "LEFT JOIN users u ON p.creat_user = u.id\r\n;";
 	
 	public static final String ADD_PROJECT = "insert into project (name, start_date, end_date, description, creat_user)\r\n"
 			+ "values\r\n"
@@ -43,4 +48,18 @@ public class DbQuerry {
 	public static final String TASK_ADD = "insert into task (name, start_date, end_date, assignee, project, status, description)\r\n"
 			+ "values\r\n"
 			+ "	(?, ?, ?, ?, ?, ?, ?);";
+	
+	public static final String TASK_WITH_USER_ID = "SELECT t.id as task_id, t.name as task_name, t.start_date, t.end_date, p.name as project_name, s.name as status, t.description, t.assignee \r\n"
+			+ "FROM task t \r\n"
+			+ "LEFT JOIN users u ON t.assignee = u.id\r\n"
+			+ "left join status s on t.status = s.id\r\n"
+			+ "left join project p on t.project = p.id\r\n"
+			+ "where u.id = ";
+	
+	public static final String TASK_WITH_LEADER_ID = "select t.id as task_id, t.name as task_name, t.start_date, t.end_date, t.assignee, p.name as project_name, s.name as status, t.description\r\n"
+			+ "from task t\r\n"
+			+ "left join project p on t.project = p.id\r\n"
+			+ "left join users u on p.creat_user = u.id\r\n"
+			+ "left join status s on t.status = s.id\r\n"
+			+ "where u.id = ";
 }

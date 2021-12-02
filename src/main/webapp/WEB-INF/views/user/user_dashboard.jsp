@@ -46,9 +46,10 @@
 			<tbody>
 				<c:forEach var="user" items="${users}">
 					<tr>
-						<td><a href="${root}/user/delete?id=${user.id}"><i class="fas fa-trash"></i> Delete</a>	|
-						<a href="${root}/user/update?id=${user.id}"><i class="fas fa-edit"></i> Update</a>	|
-						<a href="${root}/user/profile?id=${user.id}"><i class=" fas fa-info"></i> Profile</a>
+						<td>
+							<a href="${root}/user/delete?id=${user.id}"><i class="fas fa-trash"></i> Delete</a>	|
+							<a href="${root}/user/update?id=${user.id}"><i class="fas fa-edit"></i> Update</a>	|
+							<a href="${root}/user/profile?id=${user.id}"><i class=" fas fa-info"></i> Profile</a>
 						</td>
 						<td>${user.name}</td>
 						<td>${user.email}</td>

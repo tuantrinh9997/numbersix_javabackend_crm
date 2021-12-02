@@ -43,6 +43,8 @@ public class AuthenFilter implements Filter{
 			
 			String username = null;
 			String role = null;
+			String id = null;
+			String name = null;
 			
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {
@@ -52,6 +54,12 @@ public class AuthenFilter implements Filter{
 					if("ck_role".equals(cookie.getName())) {
 						role = cookie.getValue();
 					}
+					if("ck_id".equals(cookie.getName())) {
+						id = cookie.getValue();
+					}
+					if("ck_name".equals(cookie.getName())) {
+						name = cookie.getValue();
+					}
 					
 				}
 			}
@@ -60,6 +68,9 @@ public class AuthenFilter implements Filter{
 			if (isAuthenticated) {
 				req.setAttribute("role", role);
 				req.setAttribute("username", username);
+				req.setAttribute("id", id);
+				req.setAttribute("name", name);
+				System.out.println(name);
 				
 				chain.doFilter(req, resp);
 				

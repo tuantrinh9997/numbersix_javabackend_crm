@@ -40,7 +40,6 @@
 						<th>Description</th>
 						<th>Start_date</th>
 						<th>End_date</th>
-						<th>Assignee</th>
 						<th>Project</th>
 						<th>Status</th>
 				</thead>
@@ -59,7 +58,6 @@
 							<td>${task.description}</td>
 							<td>${task.start_date}</td>
 							<td>${task.end_date}</td>
-							<td>${task.assignee.name}</td>
 							<td>${task.project.name}</td>
 							<td>${task.status.name}</td>
 							<td></td>

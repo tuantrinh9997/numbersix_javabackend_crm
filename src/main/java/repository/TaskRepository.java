@@ -17,9 +17,19 @@ public class TaskRepository extends BaseRepository{
 	private ProjectRepository _projectRepository = new ProjectRepository();
 	private StatusRepository _statusRepository = new StatusRepository();
 
-	public List<Task> getTask() {
+	public List<Task> getTask(int id_user, String role) {
 		List<Task> tasks = new LinkedList<Task>();
-		String query = DbQuerry.TASK_WITH_USER_AND_PROJECT;
+		
+		String query = DbQuerry.TASK_WITH_USER_ID+id_user+";";
+		
+		if (role.equalsIgnoreCase("admin")) {
+			query = DbQuerry.TASK_WITH_USER_AND_PROJECT;
+		}
+		
+		if (role.equalsIgnoreCase("leader")) {
+			query = DbQuerry.TASK_WITH_LEADER_ID+id_user+";";
+			
+		}
 		
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
@@ -76,7 +86,7 @@ public class TaskRepository extends BaseRepository{
 		
 		return tasks;
 	}
-
+	
 	public int addTask(String name, String start_date, String end_date, String description, int assignee,
 			int project, int status) {
 		String query = DbQuerry.TASK_ADD;
@@ -97,7 +107,7 @@ public class TaskRepository extends BaseRepository{
 		
 		return 0;
 	}
-
+	
 	public int deleteTask(int id) {
 		String query = "DELETE FROM task WHERE id="+id+";";
 		
@@ -110,6 +120,42 @@ public class TaskRepository extends BaseRepository{
 		}
 		
 		return 0;
+	}
+
+	public int updateTask(int id, String name, String start_date, String end_date, String description, int assignee,
+			int project, int status) {
+		String query = "update task\r\n"
+				+ "set name = '"+name+"', start_date = '"+start_date+"', end_date = '"+end_date+"', assignee = "+assignee+", project = "+project+", description = '"+description+"'\r\n"
+				+ "where id = "+id+";";
+		try {
+			PreparedStatement statement = _connection.prepareStatement(query);
+			return statement.executeUpdate();
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return 0;
+	}
+	
+	public int updateTaskByUser(int id, int status) {
+		System.out.println("---"+id);
+		String query = "update task\r\n"
+				+ "set status = "+status+"\r\n"
+				+ "where id = "+id+";";
+		
+		try {
+			PreparedStatement statement = _connection.prepareStatement(query);
+			return statement.executeUpdate();
+					
+		} catch (SQLException e) {
+			System.out.println("khong ket noi database duoc");
+			e.printStackTrace();
+		}
+		
+		return 0;
+		
 	}
 
 }

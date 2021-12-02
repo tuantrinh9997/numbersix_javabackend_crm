@@ -132,7 +132,10 @@ public class ProjectServlet extends HttpServlet{
 	}
 	
 	private void getProject(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<Project> projects = _service.getProject();
+		int id = Integer.parseInt((String) req.getAttribute("id"));
+		String role = (String) req.getAttribute("role");
+		
+		List<Project> projects = _service.getProject(id, role);
 		
 		req.setAttribute("projects", projects);
 		req.getRequestDispatcher(JspConst.PROJECT_DASHBOARD).forward(req, resp);

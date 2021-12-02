@@ -29,4 +29,7 @@ public class JspConst {
 	/* task */
 	public static final String TASK_DASHBOARD = "/WEB-INF/views/task/task_dashboard.jsp";
 	public static final String TASK_ADD = "/WEB-INF/views/task/task_add.jsp";
+	public static final String TASK_UPDATE = "/WEB-INF/views/task/task_update.jsp";
+	public static final String TASK_INFO = "/WEB-INF/views/task/task_information.jsp";
+	public static final String TASK_UPDATE_USER = "/WEB-INF/views/task/task_update_user.jsp";
 }

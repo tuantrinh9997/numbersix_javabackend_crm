@@ -6,8 +6,8 @@ import entity.Task;
 
 public class TaskService_Implement extends BaseService implements TaskService{
 
-	public List<Task> getTask() {
-		return _taskRepository.getTask();
+	public List<Task> getTask(int id, String role) {
+		return _taskRepository.getTask(id, role);
 	}
 
 	public int addTask(String name, String start_date, String end_date, String description, int assignee,
@@ -18,6 +18,15 @@ public class TaskService_Implement extends BaseService implements TaskService{
 
 	public int deleteTask(int id) {
 		return _taskRepository.deleteTask(id);
+	}
+
+	public int updateTask(int id, String name, String start_date, String end_date, String description, int assignee,
+			int project, int status) {
+		return _taskRepository.updateTask(id, name, start_date, end_date, description, assignee, project, status);
+	}
+
+	public int updateTaskByUser(int id, int status) {
+		return _taskRepository.updateTaskByUser(id, status);
 	}
 
 }

@@ -3,6 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 
 <c:set var="root" value="${pageContext.request.contextPath }" />
+
 <div class="page__header mb-0">
 	<div class="container page__container">
 		<div class="navbar navbar-secondary navbar-light navbar-expand-sm p-0">
@@ -13,25 +14,35 @@
 
 			<div class="navbar-collapse collapse" id="navbarsExample03">
 				<ul class="nav navbar-nav flex">
+				
+					<li class="nav-item"><a class="nav-link active" href="home">
+							Home</a></li>
+							
 					<li class="nav-item"><a class="nav-link active"
-						href="home"> Home</a></li>
-					<li class="nav-item"><a class="nav-link active"
-						href="home"> Leader test</a></li>
-					<li class="nav-item dropdown"><a href="#"
+						href="${root}/project?id=${id}"> Leader project</a></li>
+						
+					<li class="nav-item dropdown"><a href=""
 						class="nav-link dropdown-toggle" data-toggle="dropdown">
-							Project </a>
+							Leader task </a>
+							
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/project-manage" />'> Manage Project </a> <a
-								class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/project-creat" />'> Project Create Project </a>
+							<a class="dropdown-item" href="${root}/task?id=${id}">
+								List task </a>
+							<a class="dropdown-item" href="${root}/task/add">
+								Add new task </a>
+							<a class="dropdown-item" href="${root}/task/delete">
+								Delete task </a>
+							<a class="dropdown-item" href="${root}/task/update">
+								Update task </a>
 						</div></li>
 					<li class="nav-item dropdown"><a href="#"
 						class="nav-link dropdown-toggle" data-toggle="dropdown"> User
 					</a>
 						<div class="dropdown-menu">
-							<a class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/user-list" />'> User List </a> <a
-								class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/user-creat" />'> Create User </a>
+							<a class="dropdown-item"
+								href="${root}/user">
+								User List </a>
 						</div></li>
-					<li class="nav-item"><a class="nav-link" href="#">Task</a></li>
 				</ul>
 			</div>
 		</div>
