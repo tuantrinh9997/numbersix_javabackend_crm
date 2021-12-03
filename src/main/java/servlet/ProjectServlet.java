@@ -49,21 +49,28 @@ public class ProjectServlet extends HttpServlet{
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+		String role = (String) req.getAttribute("role");
 		switch (_action) {
 		case UrlConst.PROJECT_HOME:
 			getProject(req, resp);
 			break;
 			
 		case UrlConst.PROJECT_ADD:
-			req.getRequestDispatcher(JspConst.PROJECT_ADD).forward(req, resp);
+			if (role.equalsIgnoreCase("admin"))
+				req.getRequestDispatcher(JspConst.PROJECT_ADD).forward(req, resp);
+			else getProject(req, resp);
 			break;
 			
 		case UrlConst.PROJECT_DELETE:
-			deleteProject(req, resp);
+			if (role.equalsIgnoreCase("admin"))
+				deleteProject(req, resp);
+			else getProject(req, resp);
 			break;
 			
 		case UrlConst.PROJECT_UPDATE:
-			req.getRequestDispatcher(JspConst.PROJECT_UPDATE).forward(req, resp);
+			if (role.equalsIgnoreCase("admin"))
+				req.getRequestDispatcher(JspConst.PROJECT_UPDATE).forward(req, resp);
+			else getProject(req, resp);
 			break;
 			
 		case UrlConst.PROJECT_INFO:

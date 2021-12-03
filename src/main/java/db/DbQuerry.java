@@ -19,6 +19,11 @@ public class DbQuerry {
 			+ "LEFT JOIN roles r ON u.role_id = r.id\r\n"
 			+ "where u.id = ";
 	
+	public static final String USER_IS_MEMBER = "SELECT u.id as user_id, u.fullname as user_name, email, password, phone, address, r.id as role_id, r.name as role_name, r.description as role_description \r\n"
+			+ "FROM users u \r\n"
+			+ "LEFT JOIN roles r ON u.role_id = r.id\r\n"
+			+ "where r.id = 4";
+	
 	/* PROJECT */
 	public static final String PROJECT_WITH_USER_ID = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
 			+ "FROM project p \r\n"
@@ -45,9 +50,9 @@ public class DbQuerry {
 			+ "left join status s on t.status = s.id\r\n"
 			+ "left join project p on t.project = p.id;";
 	
-	public static final String TASK_ADD = "insert into task (name, start_date, end_date, assignee, project, status, description)\r\n"
+	public static final String TASK_ADD = "insert into task (name, start_date, end_date, assignee, project, description)\r\n"
 			+ "values\r\n"
-			+ "	(?, ?, ?, ?, ?, ?, ?);";
+			+ "	(?, ?, ?, ?, ?, ?);";
 	
 	public static final String TASK_WITH_USER_ID = "SELECT t.id as task_id, t.name as task_name, t.start_date, t.end_date, p.name as project_name, s.name as status, t.description, t.assignee \r\n"
 			+ "FROM task t \r\n"

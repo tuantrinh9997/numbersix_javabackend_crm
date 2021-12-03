@@ -28,13 +28,8 @@
 						<div class="dropdown-menu">
 							<a class="dropdown-item" href="${root}/task?id=${id}">
 								List task </a>
-							<a class="dropdown-item" href="${root}/task/add">
-								Add new task </a>
-							<a class="dropdown-item" href="${root}/task/delete">
-								Delete task </a>
-							<a class="dropdown-item" href="${root}/task/update">
-								Update task </a>
-						</div></li>
+						</div>
+					</li>
 					<li class="nav-item dropdown"><a href="#"
 						class="nav-link dropdown-toggle" data-toggle="dropdown"> User
 					</a>

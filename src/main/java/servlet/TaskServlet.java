@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import entity.Project;
 import entity.Task;
 import service.TaskService;
 import service.TaskService_Implement;
@@ -128,6 +129,8 @@ public class TaskServlet extends HttpServlet{
 		int project = Integer.parseInt(req.getParameter("project"));
 		int status = Integer.parseInt(req.getParameter("status"));
 		
+		
+		
 		_service.updateTask(id ,name, start_date, end_date, description, assignee, project, status);
 		resp.sendRedirect(_uri+UrlConst.TASK_HOME);
 	}
@@ -138,10 +141,11 @@ public class TaskServlet extends HttpServlet{
 		String end_date = req.getParameter("end_date");
 		String description = req.getParameter("description");
 		int assignee = Integer.parseInt(req.getParameter("user_id"));
-		int project = Integer.parseInt(req.getParameter("project"));
-		int status = Integer.parseInt(req.getParameter("status"));
 		
-		_service.addTask(name, start_date, end_date, description, assignee, project, status);
+		int id_leader = Integer.parseInt((String) req.getAttribute("id"));
+		Project project = _service.getProject(id_leader);
+		
+		_service.addTask(name, start_date, end_date, description, assignee, project);
 		resp.sendRedirect(_uri+UrlConst.TASK_HOME);
 	}
 	

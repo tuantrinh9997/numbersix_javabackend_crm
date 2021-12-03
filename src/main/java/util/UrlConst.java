@@ -10,6 +10,8 @@ public class UrlConst {
 	public static final String USER_DELETE = "/user/delete";
 	public static final String USER_UPDATE = "/user/update";
 	public static final String USER_PROFILE = "/user/profile";
+	public static final String USER_EDIT = "/user/edit-account";
+	public static final String USER_INFO = "/user/information";
 	
 	/* authen */
 	public static final String AUTHEN_HOME = "/authen";

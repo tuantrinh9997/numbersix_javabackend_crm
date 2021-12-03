@@ -13,10 +13,7 @@
 	<input type="text" id="description" name="description" ><br><br>
 	<label for="user_id">Assignee:</label><br>
 	<input type="number" id="user_id" name="user_id" ><br><br>
-	<label for="project">Project:</label><br>
-	<input type="number" id="project" name="project" ><br><br>
-	<label for="status">Status:</label><br>
-	<input type="number" id="status" name="status" ><br><br>
+
 	<input type="submit" value="Submit">
 </form> 
 </body>

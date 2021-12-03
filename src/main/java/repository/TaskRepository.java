@@ -88,17 +88,17 @@ public class TaskRepository extends BaseRepository{
 	}
 	
 	public int addTask(String name, String start_date, String end_date, String description, int assignee,
-			int project, int status) {
+			Project project) {
 		String query = DbQuerry.TASK_ADD;
+		int project_id = project.getId();
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
 			statement.setString(1, name);
 			statement.setString(2, start_date);
 			statement.setString(3, end_date);
 			statement.setInt(4, assignee);
-			statement.setInt(5, project);
-			statement.setInt(6, status);
-			statement.setString(7, description);
+			statement.setInt(5, project_id);
+			statement.setString(6, description);
 			
 			return statement.executeUpdate();
 		} catch (SQLException e) {
@@ -156,6 +156,34 @@ public class TaskRepository extends BaseRepository{
 		
 		return 0;
 		
+	}
+
+	public Project getProject(int id_leader) {
+		Project project = new Project();
+		String query = "select *\r\n"
+				+ "from project\r\n"
+				+ "where creat_user = "+id_leader+";";
+		
+		try {
+			PreparedStatement statement = _connection.prepareStatement(query);
+			ResultSet rs = statement.executeQuery();
+			
+			while(rs.next()) {
+				project.setId(rs.getInt("id"));
+				project.setName(rs.getString("name"));
+				project.setStart_date(rs.getString("start_date"));
+				project.setEnd_date(rs.getString("end_date"));
+				project.setDescription("description");
+				User user = _userRepository.findUser(id_leader);
+				project.setUser(user);
+			}
+			
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+			
+		return project;
 	}
 
 }

@@ -14,26 +14,14 @@
 
 			<div class="navbar-collapse collapse" id="navbarsExample03">
 				<ul class="nav navbar-nav flex">
-					<li class="nav-item"><a class="nav-link active" href="${root}/user"> Home</a></li>
+					<li class="nav-item"><a class="nav-link active" href="${root}/home"> Home</a></li>
 						
-					<li class="nav-item"><a class="nav-link active" href="${root}/user/add"> Admin Test</a></li>
+					<li class="nav-item"><a class="nav-link active" href="${root}/user"> User</a></li>
 					
-					<li class="nav-item dropdown"><a href="#"
-						class="nav-link dropdown-toggle" data-toggle="dropdown">
-							Project </a>
-						<div class="dropdown-menu">
-						<!-- Sua lai may cho nay -->
-							<a class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/project-manage" />'> Manage Project </a> <a
-								class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/project-creat" />'> Project Create Project </a>
-						</div></li>
-					<li class="nav-item dropdown"><a href="#"
-						class="nav-link dropdown-toggle" data-toggle="dropdown"> User
-					</a>
-						<div class="dropdown-menu">
-							<a class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/user-list" />'> User List </a> <a
-								class="dropdown-item" href='<c:url value="http://localhost:8080/Java14CRM/user-creat" />'> Create User </a>
-						</div></li>
-					<li class="nav-item"><a class="nav-link" href="#">Task</a></li>
+					<li class="nav-item"><a class="nav-link active" href="${root}/project"> Project</a></li>
+					
+					<li class="nav-item"><a class="nav-link active" href="${root}/task"> Task</a></li>
+					
 				</ul>
 			</div>
 		</div>

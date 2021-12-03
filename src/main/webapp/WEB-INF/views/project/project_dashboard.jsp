@@ -14,16 +14,10 @@
 								<li class="breadcrumb-item"><a href="#">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">
 									Project</li>
-								<li class="breadcrumb-item active" aria-current="page">
-									Project Creat Project</li>
+								
 							</ol>
 						</nav>
-						<h1 class="m-0">Project Creat Project</h1>
-					</div>
-					<div class="ml-auto">
-						<a href="" class="btn btn-light"><i
-							class="material-icons icon-16pt text-muted mr-1">settings</i>
-							Settings</a>
+						<h1 class="m-0">Project</h1>
 					</div>
 				</div>
 			</div>

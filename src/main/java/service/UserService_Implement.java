@@ -28,5 +28,13 @@ public class UserService_Implement extends BaseService
 		
 		return _userRepository.updateUser(id, email, password, fullname, phone, address, role);
 	}
+
+	public int editAccount(int id, String email, String fullname, String phone, String address, String password) {
+		return _userRepository.editAccount(id, email, fullname, phone, address, password);
+	}
+
+	public List<User> getUserIsMember() {
+		return _userRepository.getUserIsMember();
+	}
 	
 }

@@ -2,6 +2,7 @@ package service;
 
 import java.util.List;
 
+import entity.Project;
 import entity.Task;
 
 public class TaskService_Implement extends BaseService implements TaskService{
@@ -11,9 +12,9 @@ public class TaskService_Implement extends BaseService implements TaskService{
 	}
 
 	public int addTask(String name, String start_date, String end_date, String description, int assignee,
-			int project, int status) {
+			Project project) {
 		
-		return _taskRepository.addTask(name, start_date, end_date, description, assignee, project, status);
+		return _taskRepository.addTask(name, start_date, end_date, description, assignee, project);
 	}
 
 	public int deleteTask(int id) {
@@ -27,6 +28,10 @@ public class TaskService_Implement extends BaseService implements TaskService{
 
 	public int updateTaskByUser(int id, int status) {
 		return _taskRepository.updateTaskByUser(id, status);
+	}
+
+	public Project getProject(int id_leader) {
+		return _taskRepository.getProject(id_leader);
 	}
 
 }
