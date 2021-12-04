@@ -10,7 +10,7 @@
 	<head>
 		<meta charset="UTF-8">
 		<link rel="shortcut icon" href='<c:url value="/assets/images/favicon.ico"></c:url>' />
-		<title><dec:title></dec:title></title>
+		<title>${role} Page</title>
 		<jsp:include page="/WEB-INF/views/layout/header.jsp"></jsp:include>
 		<dec:head></dec:head>
 		</head>

@@ -100,7 +100,7 @@
                                             </div>
                                         </div>
                                         <div class="flex">
-                                            <a href="">Tuấn</a> đã bình luận trong
+                                            <a href="">${username}</a> đã bình luận trong
                                             <a href="">Stack</a><br />
                                             <small class="text-muted">1 phút trước</small>
                                         </div>
@@ -118,8 +118,8 @@
                     <li class="nav-item dropdown">
                         <a href="#account_menu" class="nav-link dropdown-toggle" data-toggle="dropdown" data-caret="false">
                             <span class="avatar avatar-sm">
-                                <span class="avatar-title rounded-circle bg-warning">
-                                    Tuấn
+                                <span class="avatar-title123 rounded-circle-123 bg-warning">
+                                    ${username}
                                 </span>
                             </span>
                         </a>
@@ -135,7 +135,7 @@
                             <a class="dropdown-item" href="${root}/user/profile">
                                 My profile
                             </a>
-                            <a class="dropdown-item" href="#">
+                            <a class="dropdown-item" href="${root}/user/edit-account">
                                 Edit account
                             </a>
                             <div class="dropdown-divider"></div>
