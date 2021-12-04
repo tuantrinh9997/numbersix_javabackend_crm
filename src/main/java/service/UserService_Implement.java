@@ -1,11 +1,17 @@
 package service;
 
+import java.sql.Connection;
 import java.util.List;
 
 import entity.User;
+import repository.UserRepository;
 
-public class UserService_Implement extends BaseService 
-	implements UserService {
+public class UserService_Implement implements UserService {
+	
+	private UserRepository _userRepository;
+	public UserService_Implement(Connection connection) {
+		_userRepository = new UserRepository(connection);
+	}
 	
 	public List<User> getUser(){
 		return _userRepository.getUser();

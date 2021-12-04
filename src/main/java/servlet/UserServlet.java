@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.MySQLConnection;
 import entity.User;
 import service.UserService;
 import service.UserService_Implement;
@@ -32,14 +35,28 @@ public class UserServlet extends HttpServlet {
 	private UserService _userService;
 	private String action;
 	private String _uri;
-
+	private Connection _connection;
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		_userService = new UserService_Implement();
+		_connection = MySQLConnection.getConnection();
+		_userService = new UserService_Implement(_connection);
 		action = "";
 	}
-
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		try {
+			if(!_connection.isClosed()) {
+				_connection.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		action = req.getServletPath();

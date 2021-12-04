@@ -1,5 +1,6 @@
 package repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,15 +9,24 @@ import java.util.List;
 
 import db.DbQuerry;
 import entity.Project;
-import entity.Status;
+
 import entity.Task;
-import entity.User;
 
-public class TaskRepository extends BaseRepository{
-	private UserRepository _userRepository = new UserRepository();
-	private ProjectRepository _projectRepository = new ProjectRepository();
-	private StatusRepository _statusRepository = new StatusRepository();
 
+public class TaskRepository{
+	
+	//inject vào tầng service
+	
+	//private UserRepository _userRepository = new UserRepository();
+	//private ProjectRepository _projectRepository = new ProjectRepository();
+	//private StatusRepository _statusRepository = new StatusRepository();
+	
+	private Connection _connection;
+	public TaskRepository(Connection connection) {
+		_connection = connection;
+	}
+	
+	//nên đặt tên getTasks
 	public List<Task> getTask(int id_user, String role) {
 		List<Task> tasks = new LinkedList<Task>();
 		
@@ -43,7 +53,24 @@ public class TaskRepository extends BaseRepository{
 				task.setEnd_date(rs.getString("end_date"));
 				task.setDescription(rs.getString("description"));
 				
-				String assignee = rs.getString("assignee");
+				int user_id = rs.getInt("user_id");
+				task.setUser_id(user_id);
+				
+				//Lấy ra projectid thôi
+				int project_id = rs.getInt("project_id");
+				task.setProject_id(project_id);
+				
+				//lấy thêm status_id
+				int status_id = rs.getInt("status_id");
+				task.setStatus_id(status_id);
+				
+				tasks.add(task);
+				
+				//String assignee = rs.getString("assignee");
+				
+				
+				/*
+				//nên lấy ra ở tầng service
 				List<User> users = _userRepository.getUser();
 				User user = null;
 				for (User u: users) {
@@ -53,7 +80,12 @@ public class TaskRepository extends BaseRepository{
 					}
 				}
 				task.setAssignee(user);
+				*/
 				
+				
+				
+				
+				/*
 				String project_name = rs.getString("project_name");
 				List<Project> projects = _projectRepository.getProject();
 				Project project = null;
@@ -63,7 +95,11 @@ public class TaskRepository extends BaseRepository{
 						break;
 					}
 				}
+				
+				
 				task.setProject(project);
+				
+				
 				
 				String status_name = rs.getString("status");
 				List<Status> statusList = _statusRepository.getStatus();
@@ -77,7 +113,7 @@ public class TaskRepository extends BaseRepository{
 				task.setStatus(status);
 				
 				tasks.add(task);
-				
+				*/
 			}
 		} catch (SQLException e) {
 			// TODO Auto-generated catch block
@@ -158,6 +194,8 @@ public class TaskRepository extends BaseRepository{
 		
 	}
 
+	
+	//Cái này phải bỏ trong Prject Repository
 	public Project getProject(int id_leader) {
 		Project project = new Project();
 		String query = "select *\r\n"
@@ -174,8 +212,13 @@ public class TaskRepository extends BaseRepository{
 				project.setStart_date(rs.getString("start_date"));
 				project.setEnd_date(rs.getString("end_date"));
 				project.setDescription("description");
-				User user = _userRepository.findUser(id_leader);
-				project.setUser(user);
+				
+				//creat_user
+				project.setUser_id(rs.getInt("creat_user"));
+				
+				
+				//User user = _userRepository.findUser(id_leader);
+				//project.setUser(user);
 			}
 			
 		} catch (SQLException e) {

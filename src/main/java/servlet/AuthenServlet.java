@@ -2,6 +2,8 @@ package servlet;
 
 import java.io.IOException;
 //import java.util.List;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.MySQLConnection;
 import entity.User;
 import service.AuthenService;
 import service.AuthenService_Implement;
@@ -31,11 +34,30 @@ public class AuthenServlet extends HttpServlet{
 	private AuthenService _authenService;
 	private String _action;
 	private String _uri;
-	
+	private Connection _connection;
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		_authenService = new AuthenService_Implement();
+		//mở connection ở đây
+		_connection = MySQLConnection.getConnection();
+		
+		System.out.println("connect ok....");
+		_authenService = new AuthenService_Implement(_connection);
+	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		//close connecttion ở đây
+		try {
+			if(!_connection.isClosed()) {
+				_connection.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 	}
 	
 	@Override
@@ -109,6 +131,8 @@ public class AuthenServlet extends HttpServlet{
 		
 		// lay user kiem tra xem co user hay khong
 		User checkLogin = _authenService.login(username, password);
+		
+		System.out.println("user id: " +checkLogin.getId());
 		
 		if (checkLogin != null) {
 			String role = _authenService.getRoleByUserId(checkLogin.getRole().getId());

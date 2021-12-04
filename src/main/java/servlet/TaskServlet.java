@@ -1,6 +1,8 @@
 package servlet;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -9,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.MySQLConnection;
 import entity.Project;
 import entity.Task;
 import service.TaskService;
@@ -26,17 +29,31 @@ import util.UrlConst;
 public class TaskServlet extends HttpServlet{
 
 	private static final long serialVersionUID = 1L;
-	private TaskService _service;
+	private TaskService _taskService;
 	private String _action;
 	private String _uri;
-	
+	private Connection _connection;
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		_service = new TaskService_Implement();
+		_connection = MySQLConnection.getConnection();
+		_taskService = new TaskService_Implement(_connection);
 		_action = "";
 	}
 	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		try {
+			if(!_connection.isClosed()) {
+				_connection.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+	}
 	@Override
 	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		_action = req.getServletPath();
@@ -74,7 +91,7 @@ public class TaskServlet extends HttpServlet{
 	
 	private void deleteTask(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		_service.deleteTask(id);
+		_taskService.deleteTask(id);
 		
 		resp.sendRedirect(_uri+UrlConst.TASK_HOME);
 	}
@@ -83,7 +100,7 @@ public class TaskServlet extends HttpServlet{
 		int id = Integer.parseInt((String) req.getAttribute("id"));
 		String role = (String) req.getAttribute("role");
 		
-		List<Task> tasks = _service.getTask(id, role);
+		List<Task> tasks = _taskService.getTask(id, role);
 		req.setAttribute("tasks", tasks);
 		req.getRequestDispatcher(JspConst.TASK_DASHBOARD).forward(req, resp);
 	}
@@ -115,7 +132,7 @@ public class TaskServlet extends HttpServlet{
 		int id = Integer.parseInt(req.getParameter("id"));
 		int status = Integer.parseInt(req.getParameter("status"));
 		
-		_service.updateTaskByUser(id, status);
+		_taskService.updateTaskByUser(id, status);
 		resp.sendRedirect(_uri+UrlConst.TASK_HOME);
 	}
 
@@ -131,7 +148,7 @@ public class TaskServlet extends HttpServlet{
 		
 		
 		
-		_service.updateTask(id ,name, start_date, end_date, description, assignee, project, status);
+		_taskService.updateTask(id ,name, start_date, end_date, description, assignee, project, status);
 		resp.sendRedirect(_uri+UrlConst.TASK_HOME);
 	}
 
@@ -143,9 +160,9 @@ public class TaskServlet extends HttpServlet{
 		int assignee = Integer.parseInt(req.getParameter("user_id"));
 		
 		int id_leader = Integer.parseInt((String) req.getAttribute("id"));
-		Project project = _service.getProject(id_leader);
+		Project project = _taskService.getProject(id_leader);
 		
-		_service.addTask(name, start_date, end_date, description, assignee, project);
+		_taskService.addTask(name, start_date, end_date, description, assignee, project);
 		resp.sendRedirect(_uri+UrlConst.TASK_HOME);
 	}
 	

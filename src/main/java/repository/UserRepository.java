@@ -1,5 +1,6 @@
 package repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -9,9 +10,55 @@ import db.DbQuerry;
 import entity.Role;
 import entity.User;
 
-public class UserRepository extends BaseRepository {
+public class UserRepository{
 	//private Connection connection = null;
+	private Connection _connection;
+	public UserRepository(Connection connection) {
+		_connection = connection;
+	}
+	
+	 public User login(String username, String password) {
+		 try {
+			//nên viết dạng inner join thì dễ đọc hơn
+			 String query = "SELECT u.id as user_id, u.fullname as user_name, email, password, phone, address, r.id as role_id, r.name as role_name, r.description as role_description \r\n"
+						+ "FROM users u, roles r\r\n"
+						+ "WHERE u.email="+"'"+username+"'"+" and u.password="+password+" and u.role_id = r.id;";
+				
+			 	
+			 	PreparedStatement statement = _connection.prepareStatement(query);
+				
+				User user = null;
+				ResultSet rs = statement.executeQuery();
+				while (rs.next()) {
+					user = new User();
+					user.setId(rs.getInt("user_id"));
+					user.setAddress(rs.getString("address"));
+					user.setEmail(rs.getString("email"));
+					user.setName(rs.getString("user_name"));
+					user.setPassword(rs.getString("password"));
+					user.setPhone(rs.getString("phone"));
 
+					Role role = new Role();
+					role.setId(rs.getInt("role_id"));
+					role.setName(rs.getString("role_name"));
+					role.setDescription(rs.getString("role_description"));
+
+					user.setRole(role);
+					
+				}
+				return user;
+			} catch (SQLException e) {
+				
+				//ở đây
+				System.out.println("Khong the ket noi den du lieu Authen");
+				e.printStackTrace();
+			} 
+			//close tập trung
+			return null;
+	 }
+	
+	
+	
 	public List<User> getUser() {
 		List<User> users = new LinkedList<User>();
 		try {

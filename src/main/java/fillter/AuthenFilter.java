@@ -1,6 +1,8 @@
 package fillter;
 
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.SQLException;
 
 import javax.servlet.Filter;
 import javax.servlet.FilterChain;
@@ -12,6 +14,7 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.MySQLConnection;
 import service.UserService;
 import service.UserService_Implement;
 
@@ -69,10 +72,20 @@ public class AuthenFilter implements Filter{
 				
 				req.setAttribute("id", userid);
 				
-				UserService userService = new UserService_Implement();
+				//
+				Connection connection = MySQLConnection.getConnection();
+				UserService userService = new UserService_Implement(connection);
 				String username = userService.findUser(Integer.parseInt(userid)).getName();
 				req.setAttribute("username", username);
-				
+				try {
+					if(!connection.isClosed()) {
+						connection.close();
+					}
+				} catch (SQLException e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+
 				chain.doFilter(req, resp);
 				
 			} else {

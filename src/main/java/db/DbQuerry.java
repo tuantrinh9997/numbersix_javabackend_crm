@@ -25,12 +25,13 @@ public class DbQuerry {
 			+ "where r.id = 4";
 	
 	/* PROJECT */
-	public static final String PROJECT_WITH_USER_ID = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
+	//Dùng inner join đúng hơn
+	public static final String PROJECT_WITH_USER_ID = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.id as user_id, u.fullname as user_name\r\n"
 			+ "FROM project p \r\n"
 			+ "LEFT JOIN users u ON p.creat_user = u.id\r\n"
 			+ "WHERE u.id = ";
 	
-	public static final String PROJECT_WITH_USER = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
+	public static final String PROJECT_WITH_USER = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description,  u.id as user_id, u.fullname as user_name\r\n"
 			+ "FROM project p \r\n"
 			+ "LEFT JOIN users u ON p.creat_user = u.id\r\n;";
 	
@@ -38,33 +39,36 @@ public class DbQuerry {
 			+ "values\r\n"
 			+ "	(?, ?, ?, ?, ?);";
 	
-	public static final String PROJECT_WITH_ID = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.fullname as user_name\r\n"
+	public static final String PROJECT_WITH_ID = "SELECT p.id as project_id, p.name as project_name, start_date, end_date, description, u.id as user_id, u.fullname as user_name\r\n"
 			+ "FROM project p \r\n"
 			+ "LEFT JOIN users u ON p.creat_user = u.id\r\n"
 			+ "WHERE p.id = ";
 	
 	/* TASK */
-	public static final String TASK_WITH_USER_AND_PROJECT = "SELECT t.id as task_id, t.name as task_name, t.start_date, t.end_date, u.fullname as assignee, p.name as project_name, s.name as status, t.description\r\n"
+	//inner join đúng hơn
+	public static final String TASK_WITH_USER_AND_PROJECT = "SELECT t.id as task_id, t.name as task_name, t.start_date, t.end_date, u.id as user_id, u.fullname as assignee, p.id as project_id, p.name as project_name, s.id as status_id, s.name as status, t.description\r\n"
 			+ "FROM task t \r\n"
-			+ "LEFT JOIN users u ON t.assignee = u.id\r\n"
-			+ "left join status s on t.status = s.id\r\n"
-			+ "left join project p on t.project = p.id;";
+			+ "INNER JOIN users u ON t.assignee = u.id\r\n"
+			+ "INNER join status s on t.status = s.id\r\n"
+			+ "INNER join project p on t.project = p.id;";
 	
+	//CÁI NÀY OK
 	public static final String TASK_ADD = "insert into task (name, start_date, end_date, assignee, project, description)\r\n"
 			+ "values\r\n"
 			+ "	(?, ?, ?, ?, ?, ?);";
 	
-	public static final String TASK_WITH_USER_ID = "SELECT t.id as task_id, t.name as task_name, t.start_date, t.end_date, p.name as project_name, s.name as status, t.description, t.assignee \r\n"
+	//Nên dùng prepare statement ?
+	public static final String TASK_WITH_USER_ID = "SELECT t.id as task_id, t.name as task_name, t.start_date, t.end_date, p.id as project_id, p.name as project_name, s.id as status_id, s.name as status, t.description, t.assignee, u.id as user_id \r\n"
 			+ "FROM task t \r\n"
-			+ "LEFT JOIN users u ON t.assignee = u.id\r\n"
-			+ "left join status s on t.status = s.id\r\n"
-			+ "left join project p on t.project = p.id\r\n"
+			+ "INNER JOIN users u ON t.assignee = u.id\r\n"
+			+ "INNER join status s on t.status = s.id\r\n"
+			+ "INNER join project p on t.project = p.id\r\n"
 			+ "where u.id = ";
 	
-	public static final String TASK_WITH_LEADER_ID = "select t.id as task_id, t.name as task_name, t.start_date, t.end_date, t.assignee, p.name as project_name, s.name as status, t.description\r\n"
+	public static final String TASK_WITH_LEADER_ID = "select t.id as task_id, t.name as task_name, t.start_date, t.end_date, t.assignee, p.id as project_id, p.name as project_name, s.id as status_id, s.name as status, t.description, u.id as user_id \r\n"
 			+ "from task t\r\n"
-			+ "left join project p on t.project = p.id\r\n"
-			+ "left join users u on p.creat_user = u.id\r\n"
-			+ "left join status s on t.status = s.id\r\n"
+			+ "INNER join project p on t.project = p.id\r\n"
+			+ "INNER join users u on p.creat_user = u.id\r\n"
+			+ "INNER join status s on t.status = s.id\r\n"
 			+ "where u.id = ";
 }

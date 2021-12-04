@@ -7,6 +7,9 @@ public class Project {
 	private String description;
 	private String start_date;
 	private String end_date;
+	
+	//Cái này là created user
+	private int user_id;
 	private User user;
 	
 	/* contructor */
@@ -26,6 +29,15 @@ public class Project {
 		this.start_date = start_date;
 		this.end_date = end_date;
 		this.user = user;
+	}
+	public Project(int id, String name, String description, String start_date, String end_date, int user_id) {
+		super();
+		this.id = id;
+		this.name = name;
+		this.description = description;
+		this.start_date = start_date;
+		this.end_date = end_date;
+		this.user_id = user_id;
 	}
 	public Project() {
 		
@@ -78,6 +90,12 @@ public class Project {
 	
 	public void setUser(User user) {
 		this.user = user;
+	}
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
 	}
 	
 	/* method */

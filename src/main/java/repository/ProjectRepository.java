@@ -1,5 +1,6 @@
 package repository;
 
+import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -8,11 +9,18 @@ import java.util.List;
 
 import db.DbQuerry;
 import entity.Project;
-import entity.User;
 
-public class ProjectRepository extends BaseRepository {
-	UserRepository repository = new UserRepository();
 
+public class ProjectRepository {
+	//nhét vô service
+	//UserRepository repository = new UserRepository();
+	
+	private Connection _connection;
+	public ProjectRepository(Connection connection) {
+		_connection = connection;
+	}
+	
+	//Nên đặt tên hàm là getProjects
 	public List<Project> getProject(int id_project, String role) {
 		List<Project> projects = new LinkedList<Project>();
 
@@ -20,7 +28,8 @@ public class ProjectRepository extends BaseRepository {
 		if (role.equalsIgnoreCase("admin")) {
 			query = DbQuerry.PROJECT_WITH_USER;
 		}
-
+		
+		//Chưa close connection; close tập 1 lần ơ service
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
@@ -31,8 +40,14 @@ public class ProjectRepository extends BaseRepository {
 				String description = rs.getString("description");
 				String start_date = rs.getString("start_date");
 				String end_date = rs.getString("end_date");
-				String user_name = rs.getString("user_name");
-
+				//String user_name = rs.getString("user_name");
+				int user_id = rs.getInt("user_id");
+				//Lấy thêm userid ở đây
+				
+				projects.add(new Project(id, name, description, start_date, end_date, user_id));
+				
+				
+				/*Hơi rối
 				List<User> users = repository.getUser();
 
 				User user = null;
@@ -45,6 +60,7 @@ public class ProjectRepository extends BaseRepository {
 
 				Project project = new Project(id, name, description, start_date, end_date, user);
 				projects.add(project);
+				*/
 
 			}
 		} catch (SQLException e) {
@@ -105,20 +121,25 @@ public class ProjectRepository extends BaseRepository {
 		return 0;
 	}
 
+	//Hàm này có property user rồi
+	//Nên đặt tên là findById
 	public Project getInfoProject(int id) {
 		Project project = new Project();
+
 		String query = DbQuerry.PROJECT_WITH_ID + id + ";";
 
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
 			while (rs.next()) {
-
+				int user_id = rs.getInt("user_id");
+				project.setUser_id(user_id);
 				project.setName(rs.getString("project_name"));
 				project.setStart_date(rs.getString("start_date"));
 				project.setEnd_date(rs.getString("end_date"));
 				project.setDescription(rs.getString("description"));
 
+				/*
 				String user_name = rs.getString("user_name");
 
 				List<User> users = repository.getUser();
@@ -132,6 +153,7 @@ public class ProjectRepository extends BaseRepository {
 				}
 
 				project.setUser(user);
+				*/
 			}
 
 		} catch (SQLException e) {
@@ -143,7 +165,8 @@ public class ProjectRepository extends BaseRepository {
 
 	public List<Project> getProject() {
 		List<Project> projects = new LinkedList<Project>();
-
+		
+		//Nhiều câu query quá
 		String query = DbQuerry.PROJECT_WITH_USER;
 
 		try {
@@ -156,8 +179,11 @@ public class ProjectRepository extends BaseRepository {
 				String description = rs.getString("description");
 				String start_date = rs.getString("start_date");
 				String end_date = rs.getString("end_date");
-				String user_name = rs.getString("user_name");
-
+				//String user_name = rs.getString("user_name");
+				
+				int user_id = rs.getInt("user_id");
+				projects.add(new Project(id, name, description, start_date, end_date, user_id));
+				/*
 				List<User> users = repository.getUser();
 
 				User user = null;
@@ -167,9 +193,10 @@ public class ProjectRepository extends BaseRepository {
 						break;
 					}
 				}
-
+			
 				Project project = new Project(id, name, description, start_date, end_date, user);
 				projects.add(project);
+				*/
 
 			}
 		} catch (SQLException e) {
