@@ -2,6 +2,7 @@ package servlet;
 
 import java.io.IOException;
 //import java.util.List;
+import java.sql.Connection;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +11,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import db.MySQLConnection;
 import entity.User;
 import service.AuthenService;
 import service.AuthenService_Implement;
@@ -24,18 +26,38 @@ import util.UrlConst;
 		UrlConst.AUTHEN_LOGOUT
 })
 public class AuthenServlet extends HttpServlet{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private AuthenService _authenService;
 	private String _action;
 	private String _uri;
+	private Connection _connection;
 	
 	@Override
 	public void init() throws ServletException {
 		super.init();
-		_authenService = new AuthenService_Implement();
+		//mở connection ở đây
+		_connection = MySQLConnection.getConnection();
+		
+		System.out.println("connect ok....");
+		_authenService = new AuthenService_Implement(_connection);
+	}
+	
+	@Override
+	public void destroy() {
+		// TODO Auto-generated method stub
+		super.destroy();
+		//close connecttion ở đây
+		/*
+		try {
+			if(!_connection.isClosed()) {
+				_connection.close();
+			}
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		*/
 	}
 	
 	@Override
@@ -125,10 +147,7 @@ public class AuthenServlet extends HttpServlet{
 			
 			resp.sendRedirect(_uri + UrlConst.HOME);
 			
-		} else {
-			loginGetAction(req, resp);
-		}
-		
+		} else loginGetAction(req, resp);
 	}
 	
 	

@@ -77,3 +77,96 @@ values
     (2, 'huyennguyen', '12345', 'nguyen huyen', '8736282', 2, 'soc trang'),
 	(3, 'dungtran', '12345', 'tran dung', '8736282', 3, 'ha noi'),
     (4, 'tuyenhoang', '12345', 'hoang tuyen', '8736282', 4, 'da nang');
+    
+insert into users (email, password, fullname, phone, role_id, address)
+values
+	('minhbeo', '12345', 'nguyen minh', '8736282', 4, 'tphcm');
+    
+ALTER TABLE users
+DROP FOREIGN KEY FK_users_roles;
+
+ALTER TABLE users
+ADD CONSTRAINT FK_users_roles FOREIGN KEY (role_id) REFERENCES roles(id);
+
+ALTER TABLE project
+DROP FOREIGN KEY FK_users_project;
+
+ALTER TABLE project
+ADD CONSTRAINT FK_users_project FOREIGN KEY (creat_user) REFERENCES users(id);
+
+insert into project (name, start_date, end_date, description, creat_user)
+values
+	('HCM Tower', '2021-11-28', '2021-12-28', 'du an xay dung building', 4),
+    ('Beach Valley', '2021-11-29', '2021-12-29', 'du an xay dung ven bien', 8),
+    ('Sunrise Tower', '2021-11-30', '2021-12-30', 'du an xay dung building', 8);
+    
+insert into status (name, description)
+values
+	('Not yet', 'Chua bat dau lam'),
+    ('Processing', 'Dang thuc hien'),
+    ('Done', 'Da hoan thanh');
+    
+insert into task (name, start_date, end_date, assignee, project, status, description)
+values
+	('lam duong', '2021-11-30', '2021-12-7', 9, 6, 1, 'lam duong dan vao du an');
+    
+ALTER TABLE users
+DROP FOREIGN KEY FK_users_roles;
+
+ALTER TABLE users
+ADD CONSTRAINT FK_users_roles FOREIGN KEY (role_id) REFERENCES roles(id);
+
+delete
+from roles
+where id=3;
+
+UPDATE roles
+SET name = 'user', description = 'user'
+WHERE id = 4;
+
+delete
+from users
+where id=3;
+
+ALTER TABLE users
+DROP FOREIGN KEY FK_users_roles;
+
+ALTER TABLE users
+ADD CONSTRAINT FK_users_roles FOREIGN KEY (role_id) REFERENCES roles(id)
+on update cascade
+on delete cascade;
+
+ALTER TABLE project
+DROP FOREIGN KEY FK_users_project;
+
+ALTER TABLE project
+ADD CONSTRAINT FK_project_creat_user FOREIGN KEY (creat_user) REFERENCES users(id)
+on update cascade
+on delete cascade;
+
+ALTER TABLE task
+DROP FOREIGN KEY FK_tasks_users;
+
+ALTER TABLE task
+ADD CONSTRAINT FK_tasks_users FOREIGN KEY (assignee) REFERENCES users(id)
+on update cascade
+on delete cascade;
+
+ALTER TABLE task
+DROP FOREIGN KEY FK_tasks_project;
+
+ALTER TABLE task
+ADD CONSTRAINT FK_tasks_project FOREIGN KEY (project) REFERENCES project(id)
+on update cascade
+on delete cascade;
+
+ALTER TABLE task
+DROP FOREIGN KEY FK_tasks_status;
+
+ALTER TABLE task
+ADD CONSTRAINT FK_tasks_status FOREIGN KEY (status) REFERENCES status(id)
+on update cascade
+on delete cascade;
+
+ALTER TABLE task
+ALTER status SET DEFAULT 1;

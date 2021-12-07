@@ -11,10 +11,9 @@
 					<div>
 						<nav aria-label="breadcrumb">
 							<ol class="breadcrumb mb-0">
-								<li class="breadcrumb-item"><a href="#">Home</a></li>
+								<li class="breadcrumb-item"><a href="${root}/home">Home</a></li>
 								<li class="breadcrumb-item active" aria-current="page">
 									Project</li>
-								
 							</ol>
 						</nav>
 						<h1 class="m-0">Project</h1>
@@ -22,10 +21,9 @@
 				</div>
 			</div>
 		</div>
-
 		<div class="container page__container">
-
-			<a href="${root}/project/add"><i class="fas fa-plus"></i> Add project</a><br>
+			<a href="${root}/project/add"><i class="fas fa-plus"></i> Add
+				project</a><br>
 			<table class="table">
 				<thead>
 					<tr>
@@ -39,14 +37,13 @@
 				<tbody>
 					<c:forEach var="project" items="${projects}">
 						<tr>
-							<td>
-								<a href="${root}/project/delete?id=${project.id}">
-									<i class="fas fa-trash"></i> Delete</a> | 
-								<a href="${root}/project/update?id=${project.id}">
-									<i class="fas fa-edit"></i> Update</a> | 
-								<a href="${root}/project/information?id=${project.id}">
-									<i class=" fas fa-info"></i> Information</a>
-							</td>
+							<td><a href="${root}/project/delete?id=${project.id}"> <i
+									class="fas fa-trash"></i> Delete
+							</a> | <a href="${root}/project/update?id=${project.id}"> <i
+									class="fas fa-edit"></i> Update
+							</a> | <a href="${root}/project/information?id=${project.id}"> <i
+									class=" fas fa-info"></i> Information
+							</a></td>
 							<td>${project.name}</td>
 							<td>${project.description}</td>
 							<td>${project.start_date}</td>

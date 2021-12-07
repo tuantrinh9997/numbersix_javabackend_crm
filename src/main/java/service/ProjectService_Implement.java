@@ -1,13 +1,34 @@
 package service;
 
+import java.sql.Connection;
+
 import java.util.List;
 
 import entity.Project;
 
-public class ProjectService_Implement extends BaseService implements ProjectService{
+import repository.ProjectRepository;
+import repository.UserRepository;
+
+public class ProjectService_Implement implements ProjectService{
+	
+	private ProjectRepository _projectRepository;
+	private UserRepository _userRepository;
+	
+	public ProjectService_Implement(Connection connection) {
+		//cần cái gì thì inject vào đây
+		_projectRepository = new ProjectRepository(connection);
+		_userRepository = new UserRepository(connection);
+	}
 	
 	public List<Project> getProject(int id, String role) {
-		return _projectRepository.getProject(id, role);
+		List<Project> projects = _projectRepository.getProject(id, role);
+		
+		if (projects != null) {
+			for (Project project : projects) {
+				project.setUser(_userRepository.findUserById(project.getUser_id()));
+			}
+		}
+		return projects;
 	}
 
 	public int deleteProject(int id) {
@@ -25,7 +46,11 @@ public class ProjectService_Implement extends BaseService implements ProjectServ
 	}
 
 	public Project getInfoProject(int id) {
-		return _projectRepository.getInfoProject(id);
+		Project rt = _projectRepository.getInfoProject(id);
+		
+		rt.setUser(_userRepository.findUserById(rt.getUser_id()));
+
+		return rt;
 	}
 	
 	

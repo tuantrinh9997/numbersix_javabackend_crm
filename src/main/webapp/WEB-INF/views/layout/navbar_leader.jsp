@@ -38,6 +38,8 @@
 								href="${root}/user">
 								User List </a>
 						</div></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${root}/statistic?id=${id}"> Statistic</a></li>
 				</ul>
 			</div>
 		</div>
