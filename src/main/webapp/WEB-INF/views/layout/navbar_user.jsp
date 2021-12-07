@@ -22,6 +22,8 @@
 							<a class="dropdown-item" href="${root}/task?id=${username}"> List task </a> <a
 								class="dropdown-item" href="${root}/task/update"> Update task </a>
 						</div></li>
+					<li class="nav-item"><a class="nav-link active"
+						href="${root}/statistic?id=${id}"> Statistic</a></li>
 				</ul>
 			</div>
 		</div>

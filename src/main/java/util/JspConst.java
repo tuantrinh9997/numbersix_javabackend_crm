@@ -35,4 +35,8 @@ public class JspConst {
 	public static final String TASK_UPDATE = "/WEB-INF/views/task/task_update.jsp";
 	public static final String TASK_INFO = "/WEB-INF/views/task/task_information.jsp";
 	public static final String TASK_UPDATE_USER = "/WEB-INF/views/task/task_update_user.jsp";
+	
+	/*  */
+	public static final String STATISTIC_PROJECT = "/WEB-INF/views/statistic/statistic_project.jsp";
+	public static final String STATISTIC_STATUS_TASK = "/WEB-INF/views/statistic/statistic_status_task.jsp";
 }

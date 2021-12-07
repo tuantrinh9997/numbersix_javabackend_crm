@@ -5,13 +5,13 @@ import entity.User;
 
 public interface UserService {
 
-	public List<User> getUser();
+	public List<User> getUserList();
 	
 	public int addUser(String email, String password, String fullname, String phone, String address, int role);
 	
-	public int delUser(int id);
+	public int delUserById(int id);
 	
-	public User findUser(int id);
+	public User findUserById(int id);
 	
 	public int updateUser(int id, String email, String password, String fullname, String phone, String address, int role);
 

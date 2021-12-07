@@ -5,13 +5,10 @@ import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import entity.User;
-import service.UserService;
-import service.UserService_Implement;
 import util.JspConst;
 import util.UrlConst;
 
@@ -24,33 +21,13 @@ import util.UrlConst;
 		UrlConst.USER_EDIT,
 		UrlConst.USER_INFO
 	})
-public class UserServlet extends HttpServlet {
-	/**
-	 * 
-	 */
+public class UserServlet extends BaseServlet {
 	private static final long serialVersionUID = 1L;
-	private UserService _userService;
-	private String action;
-	private String _uri;
-
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		_userService = new UserService_Implement();
-		action = "";
-	}
-
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		action = req.getServletPath();
-		_uri = req.getContextPath();
-		super.service(req, resp);
-	}
-
+	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		String role = (String) req.getAttribute("role");
-		switch (action) {
+		switch (_action) {
 		case UrlConst.USER_DASHBOARD:
 			if (role.equalsIgnoreCase("admin"))
 				getUsers(req, resp);
@@ -66,7 +43,7 @@ public class UserServlet extends HttpServlet {
 
 		case UrlConst.USER_DELETE:
 			if (role.equalsIgnoreCase("admin"))
-				deleteUser(req, resp);
+				deleteUserById(req, resp);
 			else getUsers(req, resp);
 			break;
 
@@ -95,7 +72,7 @@ public class UserServlet extends HttpServlet {
 
 	@Override
 	protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		switch (action) {
+		switch (_action) {
 		case UrlConst.USER_ADD:
 			addUser(req, resp);
 			break;
@@ -105,7 +82,7 @@ public class UserServlet extends HttpServlet {
 			break;
 			
 		case UrlConst.USER_DASHBOARD:
-			findUser(req, resp);
+			findUserById(req, resp);
 			break;
 			
 		case UrlConst.USER_EDIT:
@@ -127,7 +104,7 @@ public class UserServlet extends HttpServlet {
 	
 	private void infoUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		User user = _userService.findUser(id);
+		User user = _userService.findUserById(id);
 		req.setAttribute("user", user);
 		
 		req.getRequestDispatcher(JspConst.USER_PROFILE).forward(req, resp);
@@ -148,15 +125,15 @@ public class UserServlet extends HttpServlet {
 	}
 
 	protected void getUsers(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		List<User> users = _userService.getUser();
+		List<User> users = _userService.getUserList();
 		req.setAttribute("users", users);
 
 		req.getRequestDispatcher(JspConst.USER_DASHBOARD).forward(req, resp);
 	}
 
-	protected void deleteUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void deleteUserById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("id"));
-		_userService.delUser(id);
+		_userService.delUserById(id);
 
 		resp.sendRedirect(_uri + UrlConst.USER_DASHBOARD);
 	}
@@ -174,9 +151,9 @@ public class UserServlet extends HttpServlet {
 		resp.sendRedirect(_uri + UrlConst.USER_DASHBOARD);
 	}
 
-	protected void findUser(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+	protected void findUserById(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
 		int id = Integer.parseInt(req.getParameter("keyword"));
-		User user = _userService.findUser(id);
+		User user = _userService.findUserById(id);
 		
 		req.setAttribute("user", user);
 		
@@ -201,7 +178,7 @@ public class UserServlet extends HttpServlet {
 	
 	protected void showProfile(HttpServletRequest req, HttpServletResponse resp)  throws ServletException, IOException {
 		int id = Integer.parseInt((String) req.getAttribute("id"));
-		User user = _userService.findUser(id);
+		User user = _userService.findUserById(id);
 		req.setAttribute("user", user);
 		
 		req.getRequestDispatcher(JspConst.USER_PROFILE).forward(req, resp);

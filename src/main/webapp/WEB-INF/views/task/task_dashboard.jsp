@@ -25,7 +25,6 @@
 		</div>
 
 		<div class="container page__container">
-
 			<a href="${root}/task/add"><i class="fas fa-plus"></i> Add task</a><br>
 			<table class="table">
 				<thead>
@@ -41,14 +40,13 @@
 				<tbody>
 					<c:forEach var="task" items="${tasks}">
 						<tr>
-							<td>
-								<a href="${root}/task/delete?id=${task.id}">
-									<i class="fas fa-trash"></i> Delete</a> | 
-								<a href="${root}/task/update?id=${task.id}">
-									<i class="fas fa-edit"></i> Update</a> | 
-								<a href="${root}/task/information?id=${task.id}">
-									<i class=" fas fa-info"></i> Information</a>
-							</td>
+							<td><a href="${root}/task/delete?id=${task.id}"> <i
+									class="fas fa-trash"></i> Delete
+							</a> | <a href="${root}/task/update?id=${task.id}"> <i
+									class="fas fa-edit"></i> Update
+							</a> | <a href="${root}/task/information?id=${task.id}"> <i
+									class=" fas fa-info"></i> Information
+							</a></td>
 							<td>${task.name}</td>
 							<td>${task.description}</td>
 							<td>${task.start_date}</td>
@@ -61,7 +59,7 @@
 			</table>
 		</div>
 	</div>
-	
+
 	<content tag="scripts"> <!-- Chart.js --> <script
 		src='<c:url value="assets/vendor/Chart.min.js" />'></script> <!-- App Charts JS -->
 	<script src='<c:url value="assets/js/chartjs-rounded-bar.js" />'></script>

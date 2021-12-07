@@ -11,7 +11,7 @@
 				<div>
 					<nav aria-label="breadcrumb">
 						<ol class="breadcrumb mb-0">
-							<li class="breadcrumb-item"><a href="#">Member</a></li>
+							<li class="breadcrumb-item"><a href="${root}/home">Home</a></li>
 							<li class="breadcrumb-item active" aria-current="page">List
 							</li>
 						</ol>
@@ -37,7 +37,6 @@
 					<th>Email</th>
 					<th>Phone</th>
 					<th>Address</th>
-					<th>Description</th>
 			</thead>
 			<tbody>
 				<c:forEach var="user" items="${users}">
@@ -47,7 +46,6 @@
 						<td>${user.email}</td>
 						<td>${user.phone}</td>
 						<td>${user.address}</td>
-						<td>${user.role.description}</td>
 				</c:forEach>
 			</tbody>
 		</table>

@@ -7,21 +7,17 @@ public class Task {
 	private String description;
 	private String start_date;
 	private String end_date;
+	
+	private int status_id;
 	private Status status;
+	
+	private int project_id;
 	private Project project;
+	
+	private int user_id;
 	private User assignee;
 
 	/* contructor */
-	/**
-	 * @param id
-	 * @param name
-	 * @param description
-	 * @param start_date
-	 * @param end_date
-	 * @param status
-	 * @param project
-	 * @param assignee
-	 */
 	public Task(int id, String name, String description, String start_date, String end_date, Status status,
 			Project project, User assignee) {
 		super();
@@ -86,6 +82,25 @@ public class Task {
 	}
 	public void setAssignee(User assignee) {
 		this.assignee = assignee;
+	}
+	
+	public int getUser_id() {
+		return user_id;
+	}
+	public void setUser_id(int user_id) {
+		this.user_id = user_id;
+	}
+	public int getProject_id() {
+		return project_id;
+	}
+	public void setProject_id(int project_id) {
+		this.project_id = project_id;
+	}
+	public int getStatus_id() {
+		return status_id;
+	}
+	public void setStatus_id(int status_id) {
+		this.status_id = status_id;
 	}
 	
 	
