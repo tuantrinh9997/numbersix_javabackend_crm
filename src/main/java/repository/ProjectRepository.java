@@ -12,15 +12,13 @@ import entity.Project;
 
 
 public class ProjectRepository {
-	//nhét vô service
-	//UserRepository repository = new UserRepository();
 	
 	private Connection _connection;
 	public ProjectRepository(Connection connection) {
 		_connection = connection;
 	}
 	
-	//Nên đặt tên hàm là getProjects
+	
 	public List<Project> getProject(int id_project, String role) {
 		List<Project> projects = new LinkedList<Project>();
 
@@ -29,7 +27,6 @@ public class ProjectRepository {
 			query = DbQuerry.PROJECT_WITH_USER;
 		}
 		
-		//Chưa close connection; close tập 1 lần ơ service
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
 			ResultSet rs = statement.executeQuery();
@@ -40,31 +37,13 @@ public class ProjectRepository {
 				String description = rs.getString("description");
 				String start_date = rs.getString("start_date");
 				String end_date = rs.getString("end_date");
-				//String user_name = rs.getString("user_name");
 				int user_id = rs.getInt("user_id");
-				//Lấy thêm userid ở đây
 				
 				projects.add(new Project(id, name, description, start_date, end_date, user_id));
 				
-				
-				/*Hơi rối
-				List<User> users = repository.getUser();
-
-				User user = null;
-				for (User u : users) {
-					if (u.getName().equals(user_name)) {
-						user = u;
-						break;
-					}
-				}
-
-				Project project = new Project(id, name, description, start_date, end_date, user);
-				projects.add(project);
-				*/
-
 			}
 		} catch (SQLException e) {
-
+			System.out.println("Khong the lay getProjectList");
 			e.printStackTrace();
 		}
 
@@ -84,6 +63,7 @@ public class ProjectRepository {
 
 			return statement.executeUpdate();
 		} catch (SQLException e) {
+			System.out.println("Khong the addProject");
 			e.printStackTrace();
 		}
 
@@ -91,13 +71,15 @@ public class ProjectRepository {
 	}
 
 	public int delProject(int id) {
-		String query = "DELETE FROM project WHERE id=" + id + ";";
+		String query = "DELETE FROM project WHERE id=?;";
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
+			statement.setInt(1, id);
+			
 			return statement.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Khong the delProject");
 			e.printStackTrace();
 		}
 
@@ -111,59 +93,46 @@ public class ProjectRepository {
 
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
+			
 			return statement.executeUpdate();
 
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Khong the updateProject");
 			e.printStackTrace();
 		}
 
 		return 0;
 	}
 
-	//Hàm này có property user rồi
-	//Nên đặt tên là findById
 	public Project getInfoProject(int id) {
 		Project project = new Project();
 
-		String query = DbQuerry.PROJECT_WITH_ID + id + ";";
+		String query = DbQuerry.PROJECT_WITH_ID;
 
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
+			statement.setInt(1, id);
 			ResultSet rs = statement.executeQuery();
+			
 			while (rs.next()) {
-				int user_id = rs.getInt("user_id");
-				project.setUser_id(user_id);
+				project.setId(rs.getInt("project_id"));
+				project.setUser_id(rs.getInt("user_id"));
 				project.setName(rs.getString("project_name"));
 				project.setStart_date(rs.getString("start_date"));
 				project.setEnd_date(rs.getString("end_date"));
 				project.setDescription(rs.getString("description"));
 
-				/*
-				String user_name = rs.getString("user_name");
-
-				List<User> users = repository.getUser();
-
-				User user = null;
-				for (User u : users) {
-					if (u.getName().equals(user_name)) {
-						user = u;
-						break;
-					}
-				}
-
-				project.setUser(user);
-				*/
 			}
 
 		} catch (SQLException e) {
+			System.out.println("Khong the getInfoProject");
 			e.printStackTrace();
 		}
 
 		return project;
 	}
 
-	public List<Project> getProject() {
+	public List<Project> getProjectList() {
 		List<Project> projects = new LinkedList<Project>();
 		
 		//Nhiều câu query quá
@@ -179,28 +148,13 @@ public class ProjectRepository {
 				String description = rs.getString("description");
 				String start_date = rs.getString("start_date");
 				String end_date = rs.getString("end_date");
-				//String user_name = rs.getString("user_name");
 				
 				int user_id = rs.getInt("user_id");
 				projects.add(new Project(id, name, description, start_date, end_date, user_id));
-				/*
-				List<User> users = repository.getUser();
-
-				User user = null;
-				for (User u : users) {
-					if (u.getName().equals(user_name)) {
-						user = u;
-						break;
-					}
-				}
-			
-				Project project = new Project(id, name, description, start_date, end_date, user);
-				projects.add(project);
-				*/
-
 			}
+			
 		} catch (SQLException e) {
-
+			System.out.println("Khong the lay getProjectList");
 			e.printStackTrace();
 		}
 

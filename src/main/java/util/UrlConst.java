@@ -33,5 +33,8 @@ public class UrlConst {
 	public static final String TASK_ADD = "/task/add";
 	public static final String TASK_UPDATE = "/task/update";
 	public static final String TASK_DELETE = "/task/delete";
-	public static final String TASK_INFO = "/task/info";
+	public static final String TASK_INFO = "/task/information";
+	
+	/* statistic */
+	public static final String STATISTIC = "/statistic";
 }

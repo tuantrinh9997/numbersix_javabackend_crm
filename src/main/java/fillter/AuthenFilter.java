@@ -25,42 +25,35 @@ import service.UserService_Implement;
 import util.UrlConst;
 
 @WebFilter(urlPatterns = UrlConst.ROOT)
-public class AuthenFilter implements Filter{
-	
+public class AuthenFilter implements Filter {
+
 	@Override
 	public void doFilter(ServletRequest request, ServletResponse respone, FilterChain chain)
 			throws IOException, ServletException {
-		
+
 		HttpServletRequest req = (HttpServletRequest) request;
 		HttpServletResponse resp = (HttpServletResponse) respone;
-		
+
 		String action = req.getServletPath();
-		
-		boolean allowAnonymos = action.equals(UrlConst.AUTHEN_LOGIN) ||
-				action.equals(UrlConst.AUTHEN_LOGOUT) ||
-				action.contains("/assets/"); // neu gap /assets (cua bootstrap) cung cho qua
-		
+
+		boolean allowAnonymos = action.equals(UrlConst.AUTHEN_LOGIN) || action.equals(UrlConst.AUTHEN_LOGOUT)
+				|| action.contains("/assets/"); // neu gap /assets (cua bootstrap) cung cho qua
+
 		if (allowAnonymos) {
 			chain.doFilter(req, resp);
-			
+
 		} else {
 			Cookie[] cookies = req.getCookies();
-			
-			//String username = null;
+
 			String role = null;
 			String userid = null;
-			//String name = null;
-			
+
 			if (cookies != null) {
 				for (Cookie cookie : cookies) {
-					/*
-					if("ck_user".equals(cookie.getName())) {
-						username = cookie.getValue();
-					}*/
-					if("ck_role".equals(cookie.getName())) {
+					if ("ck_role".equals(cookie.getName())) {
 						role = cookie.getValue();
 					}
-					if("ck_id".equals(cookie.getName())) {
+					if ("ck_id".equals(cookie.getName())) {
 						userid = cookie.getValue();
 					}
 				}
@@ -69,16 +62,17 @@ public class AuthenFilter implements Filter{
 			boolean isAuthenticated = userid != null && userid != "";
 			if (isAuthenticated) {
 				req.setAttribute("role", role);
-				
+
 				req.setAttribute("id", userid);
-				
-				//
+
 				Connection connection = MySQLConnection.getConnection();
+				
 				UserService userService = new UserService_Implement(connection);
-				String username = userService.findUser(Integer.parseInt(userid)).getName();
+				String username = userService.findUserById(Integer.parseInt(userid)).getName();
 				req.setAttribute("username", username);
+
 				try {
-					if(!connection.isClosed()) {
+					if (!connection.isClosed()) {
 						connection.close();
 					}
 				} catch (SQLException e) {
@@ -87,10 +81,10 @@ public class AuthenFilter implements Filter{
 				}
 
 				chain.doFilter(req, resp);
-				
+
 			} else {
 				resp.sendRedirect(req.getContextPath() + UrlConst.AUTHEN_LOGIN);
 			}
-		}		
+		}
 	}
 }

@@ -11,7 +11,6 @@ import entity.Role;
 import entity.User;
 
 public class UserRepository{
-	//private Connection connection = null;
 	private Connection _connection;
 	public UserRepository(Connection connection) {
 		_connection = connection;
@@ -19,13 +18,11 @@ public class UserRepository{
 	
 	 public User login(String username, String password) {
 		 try {
-			//nên viết dạng inner join thì dễ đọc hơn
-			 String query = "SELECT u.id as user_id, u.fullname as user_name, email, password, phone, address, r.id as role_id, r.name as role_name, r.description as role_description \r\n"
-						+ "FROM users u, roles r\r\n"
-						+ "WHERE u.email="+"'"+username+"'"+" and u.password="+password+" and u.role_id = r.id;";
+			 String query = DbQuerry.LOGIN;
 				
-			 	
 			 	PreparedStatement statement = _connection.prepareStatement(query);
+			 	statement.setString(1, username);
+			 	statement.setString(2, password);
 				
 				User user = null;
 				ResultSet rs = statement.executeQuery();
@@ -48,21 +45,17 @@ public class UserRepository{
 				}
 				return user;
 			} catch (SQLException e) {
-				
-				//ở đây
-				System.out.println("Khong the ket noi den du lieu Authen");
+				System.out.println("Khong the login");
 				e.printStackTrace();
 			} 
-			//close tập trung
 			return null;
 	 }
 	
 	
 	
-	public List<User> getUser() {
+	public List<User> getUserList() {
 		List<User> users = new LinkedList<User>();
 		try {
-			//connection = MySQLConnection.getConnection();
 			String query = DbQuerry.USER_WITH_ROLE;
 
 			PreparedStatement statement = _connection.prepareStatement(query);
@@ -87,7 +80,7 @@ public class UserRepository{
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Khong the ket noi den du lieu");
+			System.out.println("Khong the getUserList");
 			e.printStackTrace();
 		} 
 		return users;
@@ -109,14 +102,14 @@ public class UserRepository{
 			
 			return statement.executeUpdate();
 		} catch (SQLException e) {
-			System.out.println("Khong the ket noi du lieu");
+			System.out.println("Khong the addUser");
 			e.printStackTrace();
 		}
 		return 0;
 	}
 	
 	// delete user by id
-	public int delUser(int id) {
+	public int delUserById(int id) {
 		String query = "DELETE FROM users WHERE id="+id+";";
 		
 		try {
@@ -125,7 +118,7 @@ public class UserRepository{
 			return statement.executeUpdate();
 			
 		} catch (SQLException e) {
-			System.out.println("Khong the ket noi du lieu");
+			System.out.println("Khong the deleteUserByID");
 			e.printStackTrace();
 		}
 		
@@ -133,12 +126,14 @@ public class UserRepository{
 	}
 	
 	// find user by id
-	public User findUser(int id) {
+	public User findUserById(int id) {
 		User user = null;
-		String query = DbQuerry.USER_WITH_ID+id+";";
+		String query = DbQuerry.USER_WITH_ID;
 		
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
+			statement.setInt(1, id);
+			
 			ResultSet rs = statement.executeQuery();
 			
 			while (rs.next()) {
@@ -159,7 +154,7 @@ public class UserRepository{
 				user.setRole(role);
 			}
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Khong the findUserById");
 			e.printStackTrace();
 		}
 
@@ -183,7 +178,7 @@ public class UserRepository{
 			return statement.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Khong the updateUser");
 			e.printStackTrace();
 		}
 		return 0;
@@ -191,15 +186,20 @@ public class UserRepository{
 
 	public int editAccount(int id, String email, String fullname, String phone, String address, String password) {
 		String query = "UPDATE users\r\n"
-				+ "SET email = '"+email+"', password = "+password+", fullname = '"+fullname+"', phone = '"+phone+"', address = '"+address+"'\r\n"
+				+ "SET email = ?, password = ?, fullname = ?, phone = ?, address = ?\r\n"
 				+ "WHERE id = "+id+";";
 		
 		try {
 			PreparedStatement statement = _connection.prepareStatement(query);
+			statement.setString(1, email);
+			statement.setString(2, password);
+			statement.setString(3, fullname);
+			statement.setString(4, phone);
+			statement.setString(5, address);
 			return statement.executeUpdate();
 			
 		} catch (SQLException e) {
-			// TODO Auto-generated catch block
+			System.out.println("Khong the editAccount");
 			e.printStackTrace();
 		}
 		
@@ -209,7 +209,6 @@ public class UserRepository{
 	public List<User> getUserIsMember() {
 		List<User> users = new LinkedList<User>();
 		try {
-			//connection = MySQLConnection.getConnection();
 			String query = DbQuerry.USER_IS_MEMBER;
 
 			PreparedStatement statement = _connection.prepareStatement(query);
@@ -234,7 +233,7 @@ public class UserRepository{
 			}
 
 		} catch (SQLException e) {
-			System.out.println("Khong the ket noi den du lieu");
+			System.out.println("Khong the getUserIsMember");
 			e.printStackTrace();
 		} 
 		return users;

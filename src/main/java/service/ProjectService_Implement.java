@@ -13,6 +13,7 @@ public class ProjectService_Implement implements ProjectService{
 	
 	private ProjectRepository _projectRepository;
 	private UserRepository _userRepository;
+	
 	public ProjectService_Implement(Connection connection) {
 		//cần cái gì thì inject vào đây
 		_projectRepository = new ProjectRepository(connection);
@@ -22,14 +23,12 @@ public class ProjectService_Implement implements ProjectService{
 	public List<Project> getProject(int id, String role) {
 		List<Project> projects = _projectRepository.getProject(id, role);
 		
-		//List<User> users = _userRepository.getUser();
-		if(projects != null) {
+		if (projects != null) {
 			for (Project project : projects) {
-				project.setUser(_userRepository.findUser(project.getUser_id()));
+				project.setUser(_userRepository.findUserById(project.getUser_id()));
 			}
 		}
 		return projects;
-		//return _projectRepository.getProject(id, role);
 	}
 
 	public int deleteProject(int id) {
@@ -49,10 +48,9 @@ public class ProjectService_Implement implements ProjectService{
 	public Project getInfoProject(int id) {
 		Project rt = _projectRepository.getInfoProject(id);
 		
-		rt.setUser(_userRepository.findUser(rt.getUser_id()));
+		rt.setUser(_userRepository.findUserById(rt.getUser_id()));
 
 		return rt;
-		//return _projectRepository.getInfoProject(id);
 	}
 	
 	

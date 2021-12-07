@@ -22,6 +22,8 @@
 					
 					<li class="nav-item"><a class="nav-link active" href="${root}/task"> Task</a></li>
 					
+					<li class="nav-item"><a class="nav-link active" href="${root}/statistic"> Statistic</a></li>
+					
 				</ul>
 			</div>
 		</div>

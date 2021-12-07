@@ -9,24 +9,25 @@ import repository.UserRepository;
 public class UserService_Implement implements UserService {
 	
 	private UserRepository _userRepository;
+	
 	public UserService_Implement(Connection connection) {
 		_userRepository = new UserRepository(connection);
 	}
 	
-	public List<User> getUser(){
-		return _userRepository.getUser();
+	public List<User> getUserList(){
+		return _userRepository.getUserList();
 	}
 
 	public int addUser(String email, String password, String fullname, String phone, String address, int role) {
 		return _userRepository.addUser(email, password, fullname, phone, address, role);
 	}
 
-	public int delUser(int id) {
-		return _userRepository.delUser(id);
+	public int delUserById(int id) {
+		return _userRepository.delUserById(id);
 	}
 
-	public User findUser(int id) {
-		return _userRepository.findUser(id);
+	public User findUserById(int id) {
+		return _userRepository.findUserById(id);
 	}
 
 	public int updateUser(int id, String email, String password, String fullname, String phone, String address,

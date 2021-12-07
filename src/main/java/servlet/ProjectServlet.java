@@ -1,20 +1,18 @@
 package servlet;
 
 import java.io.IOException;
-import java.sql.Connection;
-import java.sql.SQLException;
+
 import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
-import javax.servlet.http.HttpServlet;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import db.MySQLConnection;
+
 import entity.Project;
-import service.ProjectService;
-import service.ProjectService_Implement;
+
 import util.JspConst;
 import util.UrlConst;
 
@@ -25,49 +23,8 @@ import util.UrlConst;
 		UrlConst.PROJECT_DELETE,
 		UrlConst.PROJECT_INFO
 })
-
-public class ProjectServlet extends HttpServlet{
-
+public class ProjectServlet extends BaseServlet{
 	private static final long serialVersionUID = 1L;
-	
-	private ProjectService _projectService;
-	private String _action;
-	private String _uri;
-	private Connection _connection;
-	
-	@Override
-	public void init() throws ServletException {
-		super.init();
-		_connection = MySQLConnection.getConnection();
-		
-		//Đặt tên biến có nghĩa xíu
-		_projectService = new ProjectService_Implement(_connection);
-		_action = "";
-		
-	}
-	
-	@Override
-	public void destroy() {
-		// TODO Auto-generated method stub
-		super.destroy();
-		//close connecttion ở đây
-		try {
-			if(!_connection.isClosed()) {
-				_connection.close();
-			}
-		} catch (SQLException e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-	}
-	
-	@Override
-	protected void service(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-		_action = req.getServletPath();
-		_uri = req.getContextPath();
-		// super de duoi cung neu khong se bi loi khi load web page
-		super.service(req, resp);
-	}
 	
 	@Override
 	protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {

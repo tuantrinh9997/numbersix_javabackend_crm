@@ -13,20 +13,11 @@ public class Task {
 	
 	private int project_id;
 	private Project project;
+	
 	private int user_id;
 	private User assignee;
 
 	/* contructor */
-	/**
-	 * @param id
-	 * @param name
-	 * @param description
-	 * @param start_date
-	 * @param end_date
-	 * @param status
-	 * @param project
-	 * @param assignee
-	 */
 	public Task(int id, String name, String description, String start_date, String end_date, Status status,
 			Project project, User assignee) {
 		super();

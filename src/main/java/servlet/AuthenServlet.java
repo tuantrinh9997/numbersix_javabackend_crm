@@ -3,7 +3,6 @@ package servlet;
 import java.io.IOException;
 //import java.util.List;
 import java.sql.Connection;
-import java.sql.SQLException;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -27,14 +26,13 @@ import util.UrlConst;
 		UrlConst.AUTHEN_LOGOUT
 })
 public class AuthenServlet extends HttpServlet{
-	/**
-	 * 
-	 */
+	
 	private static final long serialVersionUID = 1L;
 	private AuthenService _authenService;
 	private String _action;
 	private String _uri;
 	private Connection _connection;
+	
 	@Override
 	public void init() throws ServletException {
 		super.init();
@@ -50,6 +48,7 @@ public class AuthenServlet extends HttpServlet{
 		// TODO Auto-generated method stub
 		super.destroy();
 		//close connecttion ở đây
+		/*
 		try {
 			if(!_connection.isClosed()) {
 				_connection.close();
@@ -58,6 +57,7 @@ public class AuthenServlet extends HttpServlet{
 			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
+		*/
 	}
 	
 	@Override
@@ -132,8 +132,6 @@ public class AuthenServlet extends HttpServlet{
 		// lay user kiem tra xem co user hay khong
 		User checkLogin = _authenService.login(username, password);
 		
-		System.out.println("user id: " +checkLogin.getId());
-		
 		if (checkLogin != null) {
 			String role = _authenService.getRoleByUserId(checkLogin.getRole().getId());
 			
@@ -149,10 +147,7 @@ public class AuthenServlet extends HttpServlet{
 			
 			resp.sendRedirect(_uri + UrlConst.HOME);
 			
-		} else {
-			loginGetAction(req, resp);
-		}
-		
+		} else loginGetAction(req, resp);
 	}
 	
 	

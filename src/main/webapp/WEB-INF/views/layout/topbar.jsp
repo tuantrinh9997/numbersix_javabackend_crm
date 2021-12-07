@@ -129,7 +129,7 @@
                                 <div>${username}</div>
                             </div>
                             <div class="dropdown-divider"></div>
-                            <a class="dropdown-item active" href="dashboard.html">
+                            <a class="dropdown-item active" href="${root}/home">
                                 Dashboard
                             </a>
                             <a class="dropdown-item" href="${root}/user/profile">

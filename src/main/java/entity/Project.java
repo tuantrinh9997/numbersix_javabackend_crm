@@ -7,22 +7,13 @@ public class Project {
 	private String description;
 	private String start_date;
 	private String end_date;
+	private User user;
 	
 	//Cái này là created user
 	private int user_id;
-	private User user;
 	
 	/* contructor */
-	/**
-	 * @param id
-	 * @param name
-	 * @param description
-	 * @param start_date
-	 * @param end_date
-	 * @param user
-	 */
 	public Project(int id, String name, String description, String start_date, String end_date, User user) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -30,8 +21,8 @@ public class Project {
 		this.end_date = end_date;
 		this.user = user;
 	}
+	
 	public Project(int id, String name, String description, String start_date, String end_date, int user_id) {
-		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
@@ -39,6 +30,7 @@ public class Project {
 		this.end_date = end_date;
 		this.user_id = user_id;
 	}
+	
 	public Project() {
 		
 	}

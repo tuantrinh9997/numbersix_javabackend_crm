@@ -14,11 +14,12 @@ public interface TaskService {
 
 	public int deleteTask(int id);
 
-	public int updateTask(int id, String name, String start_date, String end_date, String description, int assignee,
-			int project, int status);
+	public int updateTask(int id, String name, String start_date, String end_date, String description, int assignee);
 
 	public int updateTaskByUser(int id, int status);
 
 	public Project getProject(int id_leader);
+
+	public Task getInfoTask(int id);
 
 }
